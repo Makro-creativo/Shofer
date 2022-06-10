@@ -1,0 +1,9 @@
+.img-circle {
+    width: 300px !important;
+    height: 300px !important;
+    border-radius: 150px !important;
+}
+
+.navbar-light {
+    background-color: #555555 !important;
+}
