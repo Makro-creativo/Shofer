@@ -230,5 +230,20 @@
         });
       }                                  
   </script> 
+  <script type="text/javascript">
+      function cleanNotificationComments() {
+        $.ajax({
+          url: "./notifications-comments.php",
+          type: "POST",
+          processData:false,
+          success: function(data){
+            $("#notification-count-comments").remove();                  
+          },
+          error: function(error){
+            console.log(error);
+          }           
+        });
+      }                                  
+  </script> 
 </body>
 </html>

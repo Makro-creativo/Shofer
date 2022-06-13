@@ -17,9 +17,71 @@
         $price = $_POST['price'];
         $kilometer = $_POST['kilometer'];
 
+        //imagen Ine
+        $directorio = "assets/images/"; 
+        $nombreDoc = $_FILES['image_url']['name'];
+        
+        $formatosDoc = array('.JPG','.jpg','.png','.PNG','.PDF','.pdf','.docx'); //formatos a admitir
+        $tmpDoc = $_FILES['image_url']['tmp_name']; //Nombre temporal del archivo
+        $extension = substr($nombreDoc, strrpos($nombreDoc,'.'));   //Para cortar la caden y obtener solo la 
+                                    
+        $ruta = $directorio.$nombreDoc; 
+    
+        if(in_array($extension, $formatosDoc)){ //Verifica que se encuente la extension o un valor en el arreglo
+            $nombreDoc = html_entity_decode($nombreDoc);
+            if(move_uploaded_file($_FILES['image_url']['tmp_name'], $ruta)){
+                //Se subio img
+            } else {
+                echo "no se movio";
+            }
+        } else {
+            echo "no es la extension";
+        }
+
+        // Imagen circulación
+         $directorio2 = "assets/images/"; 
+         $nombreDoc2 = $_FILES['image_url_circulacion']['name'];
+         
+         $formatosDoc2 = array('.JPG','.jpg','.png','.PNG','.PDF','.pdf','.docx'); //formatos a admitir
+         $tmpDoc2 = $_FILES['image_url_circulacion']['tmp_name']; //Nombre temporal del archivo
+         $extension2 = substr($nombreDoc2, strrpos($nombreDoc2,'.'));   //Para cortar la caden y obtener solo la 
+                                     
+         $ruta2 = $directorio2.$nombreDoc2; 
+     
+         if(in_array($extension2, $formatosDoc2)){ //Verifica que se encuente la extension o un valor en el arreglo
+             $nombreDoc2 = html_entity_decode($nombreDoc2);
+             if(move_uploaded_file($_FILES['image_url_circulacion']['tmp_name'], $ruta2)){
+                 //Se subio img
+             } else {
+                 echo "no se movio";
+             }
+         } else {
+             echo "no es la extension";
+         }
+
+         // Imagen personal
+         $directorio3 = "assets/images/"; 
+         $nombreDoc3 = $_FILES['image_url_circulacion']['name'];
+         
+         $formatosDoc3 = array('.JPG','.jpg','.png','.PNG','.PDF','.pdf','.docx'); //formatos a admitir
+         $tmpDoc3 = $_FILES['image_url_circulacion']['tmp_name']; //Nombre temporal del archivo
+         $extension3 = substr($nombreDoc2, strrpos($nombreDoc3,'.'));   //Para cortar la caden y obtener solo la 
+                                     
+         $ruta3 = $directorio3.$nombreDoc3; 
+     
+         if(in_array($extension3, $formatosDoc3)){ //Verifica que se encuente la extension o un valor en el arreglo
+             $nombreDoc3 = html_entity_decode($nombreDoc3);
+             if(move_uploaded_file($_FILES['image_url_circulacion']['tmp_name'], $ruta3)){
+                 //Se subio img
+             } else {
+                 echo "no se movio";
+             }
+         } else {
+             echo "no es la extension";
+         }
     
 
-        $query_save_choferes = "INSERT INTO choferes(name, phone, vehicle, plates, adress, account_number, price, kilometer, img_url_ine) VALUES('$name', '$phone', '$vehicle', '$plates', '$adress', '$accountNumber', '$price', '$kilometer', '$ruta')";
+        $query_save_choferes = "INSERT INTO choferes(name, phone, vehicle, plates, adress, account_number, price, kilometer, image_url, image_url_circulacion, image_url_person) VALUES('$name', '$phone', '$vehicle', '$plates', '$adress', '$accountNumber', '$price', '$kilometer', '$ruta', '$ruta2', '$ruta3')";
         $result_save_choferes = mysqli_query($conexion, $query_save_choferes);
 
         if($result_save_choferes) {
@@ -112,7 +174,9 @@
                                                     <th>Número de cuenta</th>
                                                     <th>Precio</th>
                                                     <th>Kilometros</th>
-                                                    <th>Foto Ine</th>
+                                                    <th>Foto del ine</th>
+                                                    <th>Foto de circulación</th>
+                                                    <th>Foto personal</th>
                                                     <th>Total a pagar</th>
 
                                                     <?php if($typeUser === "Administrador") {?>
@@ -150,7 +214,15 @@
                                                     <td><?php echo $row['account_number']; ?></td>
                                                     <td><?php echo number_format($row['price'], 2); ?></td>
                                                     <td><?php echo $row['kilometer']; ?> Kilometros</td>
-                                                    <td><img src="<?php echo $row["photo_ine"]; ?>" alt=""></td>
+                                                    <td>
+                                                        <img src="<?php echo $row['image_url']; ?>" alt="" class="img-fluid">
+                                                    </td>
+                                                    <td>
+                                                        <img src="<?php echo $row['image_url_circulacion']; ?>" alt="" class="img-fluid">
+                                                    </td>
+                                                    <td>
+                                                        <img src="<?php echo $row['image_url_person']; ?>" alt="" class="img-fluid">
+                                                    </td>
                                                     <td>
                                                         <?php 
                                                             $total = $row['price']*$row['kilometer'];
@@ -187,6 +259,7 @@
 
             </div>
             <br>
+            
 
             <!-- Modal -->
             <div class="modal fade" id="choferes" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -266,15 +339,14 @@
                                 <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                     <div class="form-group">
                                         <label class="form-label">Foto del ine: </label>
-                                        <input type="file" class="form-control" name="img_url_ine">
+                                        <input type="file" class="form-control" name="image_url">
                                     </div>
                                 </div>
 
                                 <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                     <div class="form-group">
-                                        <label class="form-label">Foto de circulación: </label>
-                                        <input type="file" class="form-control" name="img_circulacion">
-                                    </div>
+                                    <label class="form-label">Foto de circulación: </label>
+                                    <input type="file" class="form-control" name="image_url_circulacion">
                                 </div>
                             </div>
 
@@ -282,7 +354,7 @@
                                 <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12 col-xxl-12">
                                     <div class="form-group">
                                         <label class="form-label">Foto personal: </label>
-                                        <input type="file" class="form-control" name="img_person">
+                                        <input type="file" class="form-control" name="image_url_person">
                                     </div>
                                 </div>
                             </div>
@@ -296,11 +368,13 @@
                     </div>
                 </div>
             </div>
+            <br>
             <!-- End Modal -->
 
-            <?php include "./partials/footer.php" ?>
 
         </div>
+        <br>
+        <?php include "./partials/footer.php" ?>
 
     </div>
 

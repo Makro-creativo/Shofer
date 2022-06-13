@@ -141,6 +141,54 @@
   <?php }?> 
   
   <?php if($typeUser === "Administrador") {?>
+    <!-- Notifications comments -->
+    <li class="nav-item dropdown no-arrow mx-1">
+      <a class="nav-link dropdown-toggle" href="new-orders.php" id="alertsDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <i class="bi bi-chat-left-dots-fill" onclick="cleanNotificationComments()"></i>
+        <span class="badge badge-danger badge-counter" id="notification-count-comments">
+          <?php 
+            $search_notification_comments = "SELECT * FROM comments WHERE status = 0";
+            $result_notification_comments = mysqli_query($conexion, $search_notification_comments);
+
+            $count_notification_comments= mysqli_num_rows($result_notification_comments);
+
+            echo $count_notification_comments;
+          ?>
+        </span>
+      </a>
+    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+      aria-labelledby="alertsDropdown">
+      <h6 class="dropdown-header">
+        Notificaciones de comentarios
+      </h6>
+      <?php 
+        $data_of_notifications_comments = "SELECT * FROM orders INNER JOIN comments ON orders.id_order = comments.id_order INNER JOIN clients ON clients.id_user = comments.id_user ORDER BY created_at DESC LIMIT 10";
+        $result_of_notifications_comments = mysqli_query($conexion, $data_of_notifications_comments);
+
+        while($rowNotificationComments = mysqli_fetch_array($result_of_notifications_comments)) {
+      ?>
+        <a class="dropdown-item d-flex align-items-center" href="show-order-for-id.php?id_order=<?php echo $rowNotificationComments['id_order']; ?>">
+          <div class="mr-3">
+            <div class="icon-circle bg-primary">
+              <i class="bi bi-chat-left-dots-fill text-white"></i>
+            </div>
+          </div>
+          <div>
+            <div class="small text-gray-500"><?php echo date("m/d/Y h:i A", strtotime($rowNotificationComments['created_at'])); ?></div>
+              <span class="font-weight-bold"><?php echo $rowNotificationComments['name_client']; ?></span>
+            </div>
+        </a>
+      <?php }?>
+    
+      <a class="dropdown-item text-center small text-gray-500" href="show-notification-delivery.php">Mostrar todas las notificaciones</a>
+    </div>
+  </li>
+  <!-- End Notifications Ckecked order for chofer --> 
+  <?php }?> 
+  
+  
+  <?php if($typeUser === "Administrador") {?>
     <!-- Notifications Ckecked order for chofer -->
     <li class="nav-item dropdown no-arrow mx-1">
       <a class="nav-link dropdown-toggle" href="new-orders.php" id="alertsDropdown" role="button" data-toggle="dropdown"
@@ -184,8 +232,8 @@
       <a class="dropdown-item text-center small text-gray-500" href="show-notification-delivery.php">Mostrar todas las notificaciones</a>
     </div>
   </li>
-  <!-- End Notifications Ckecked order for chofer --> 
-  <?php }?>  
+  <!-- End Notifications comments --> 
+  <?php }?>
             
   <div class="topbar-divider d-none d-sm-block"></div>
       <li class="nav-item dropdown no-arrow">

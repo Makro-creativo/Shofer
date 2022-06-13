@@ -15,12 +15,34 @@
         $price = $_POST['price'];
         $kilometer = $_POST['kilometer'];
 
-        $query_update_chofer = "UPDATE choferes SET id_user='$idChoferEdit', name='$name', phone='$phone', vehicle='$vehicle', plates='$plates', adress='$adress', account_number='$accountNumber', price='$price', kilometer='$kilometer' WHERE id_user = '$idChoferEdit'";
+         //imagen
+         $directorio = "assets/images/"; 
+         $nombreDoc = $_FILES['image_url']['name'];
+         
+         $formatosDoc = array('.JPG','.jpg','.png','.PNG','.PDF','.pdf','.docx'); //formatos a admitir
+         $tmpDoc = $_FILES['image_url']['tmp_name']; //Nombre temporal del archivo
+         $extension = substr($nombreDoc, strrpos($nombreDoc,'.'));   //Para cortar la caden y obtener solo la 
+                                     
+         $ruta = $directorio.$nombreDoc; 
+     
+         if(in_array($extension, $formatosDoc)){ //Verifica que se encuente la extension o un valor en el arreglo
+             $nombreDoc = html_entity_decode($nombreDoc);
+             if(move_uploaded_file($_FILES['image_url']['tmp_name'], $ruta)){
+                 //Se subio img
+             } else {
+                 echo "no se movio";
+             }
+         } else {
+             echo "no es la extension";
+         }
+
+        echo $query_update_chofer = "UPDATE choferes SET id_user='$idChoferEdit', name='$name', phone='$phone', vehicle='$vehicle', plates='$plates', adress='$adress', account_number='$accountNumber', price='$price', kilometer='$kilometer',
+        '$ruta' WHERE id_user = '$idChoferEdit'";
         $result_update_chofer = mysqli_query($conexion, $query_update_chofer);
 
-        if($result_update_chofer) {
+        /*if($result_update_chofer) {
             echo "<script>window.location='edit-chofer.php?bien'; </script>";
-        }
+        }*/
     }
 ?>
 
@@ -185,6 +207,15 @@
                                                     <label>Kilometros: </label>
                                                     <input value="<?php echo $kilometer;
                                                      ?>" type="number" placeholder="Ejemplo: 10, etc..." class="form-control" name="kilometer">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                <div class="form-group">
+                                                    <label class="form-label">Foto del ine: </label>
+                                                    <input type="file" name="image_url" class="form-control">
                                                 </div>
                                             </div>
                                         </div>

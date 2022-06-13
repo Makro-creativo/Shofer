@@ -1,6 +1,8 @@
 <?php 
     include "./config/conexion.php";
 
+    error_reporting(0);
+
     if(!isset($_SESSION)) {
         session_start();
     }
@@ -30,10 +32,47 @@
     .sidebar-brand {
       background-color: #555555 !important;
     }
+
+    body {
+        font-size: .875rem;
+        background-color: #eef0f2;
+    }
+
+    :root {
+        --comment-img-size: 3rem !important;
+        --comment-img-size-sm: 1.75rem;
+    }
+
+    .comment img {
+        width: var(--comment-img-size);
+        height: var(--comment-img-size-sm);
+    }
+
+    .comment replies img {
+        width: var(--comment-img-size-sm);
+        height: var(--comment-img-size-sm);
+    }
+
   </style>
 </head>
 <body id="page-top">
     <div id="wrapper">
+        <?php   
+            if(isset($_GET['exito'])){
+        ?>
+            <script>
+                Swal.fire({
+                    title: 'Listo',
+                    text: 'Se guardo correctamente!',
+                    icon: 'success',
+                        confirmButtonText: 'Ok'
+                    })
+                    .then(function() {
+                        window.location = "new-orders.php";
+                });
+            </script>
+        <?php } ?>
+
         <?php include "./partials/menuLeft.php" ?>
 
         <div id="content-wrapper" class="d-flex flex-column">
@@ -211,14 +250,198 @@
                     </div>
                 </div>
                 <br>
+                
+                <?php if($typeUser === "Administrador") { ?>
+                <!-- Start Comments -->
+                <div class="app container py-4">
+                    <div class="col-md-10 col-lg-8 m-auto">
+                        <div class="bg-white rounded-3 shadow-lg p-4 mb-4">
+                            <!-- New Comment //-->
+                            <div class="d-flex">
+                               <form action="create-comment.php" method="POST" enctype="multipart/form-data">
+                                   <input type="hidden" name="id_order_comment" value="<?php echo $folio; ?>">
+                                <div class="flex-grow-1">
+                                    <div class="hstack gap-2 mb-1">
+                                        <a href="#" class="fw-bold link-dark">Realizar comentario</a>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="file" name="image" class="form-control">
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <textarea class="form-control w-100"
+                                                    placeholder="Leave a comment here"
+                                                    id="my-comment"
+                                                    style="height:7rem;" name="description"></textarea>
+                                        <label for="my-comment">Comentario</label>
+                                    </div>
+
+                                    <div class="hstack justify-content-end gap-2">
+                                        <button type="submit" class="btn btn-sm btn-primary text-uppercase" name="saveComment">
+                                            <i class="bi bi-chat-left-dots-fill"></i>
+                                            Guardar
+                                        </button>
+                                    </div>
+                                </div>
+                               </form>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-3 shadow-lg p-4">
+
+                        <h4 class="mb-4"> 
+                            <?php 
+                                include "./config/conexion.php";
+
+                                $search_comments_for_order = "SELECT * FROM orders INNER JOIN comments ON orders.id_order = comments.id_order INNER JOIN clients ON clients.id_user = comments.id_user WHERE comments.id_order = '$folio'";
+                                $result_comments_for_order = mysqli_query($conexion, $search_comments_for_order);
+
+                                $count_comments = mysqli_num_rows($result_comments_for_order);
+
+                                echo $count_comments;
+
+                                if($count_comments > 1) {
+                                    echo " Comentarios";
+                                } else {
+                                    echo " Comentario";
+                                }
+                            ?>
+                        </h4>
+
+                        <!-- Comment #1 //-->
+                        <div class="">
+                            <?php 
+                                include "./config/conexion.php";
+
+                                $show_comments = "SELECT * FROM orders INNER JOIN comments ON orders.id_order = comments.id_order INNER JOIN clients ON clients.id_user = comments.id_user WHERE comments.id_order = '$folio'";
+                                $result = mysqli_query($conexion, $show_comments);
+
+                                while($rowComments = mysqli_fetch_array($result)) {
+                            ?>
+                            <div class="py-3">
+                            <div class="d-flex comment">
+                                <img class="rounded-circle comment-img"
+                                    src="../img/boy.png" />
+                                <div class="flex-grow-1 ms-3">
+                                    <div class="mb-1"><a href="#" class="fw-bold link-dark me-1"><?php echo $rowComments['name_client']; ?></a> <span class="text-muted text-nowrap"><?php echo $rowComments['created_at']; ?></span></div>
+                                    <div class="mb-2"><?php echo $rowComments['description']; ?></div>
+                                </div>
+                            </div>
+                        
+                        <?php }?>
+                        </div>
+                        </div>
+
+            
+            
+               
+                            </div>
+                            </div>
+                        </div>
+                        <!-- End comments -->
+                        <?php }?>
+
+                    <?php if($typeUser === "Cliente") { ?>
+                    <!-- Start Comments -->
+                    <div class="app container py-4">
+                        <div class="col-md-10 col-lg-8 m-auto">
+                            <div class="bg-white rounded-3 shadow-lg p-4 mb-4">
+                                <!-- New Comment //-->
+                                <div class="d-flex">
+                                <form action="create-comment.php" method="POST" enctype="multipart/form-data">
+                                    <input type="hidden" name="id_order_comment" value="<?php echo $folio; ?>">
+                                    <div class="flex-grow-1">
+                                        <div class="hstack gap-2 mb-1">
+                                            <a href="#" class="fw-bold link-dark">Realizar comentario</a>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="file" name="image" class="form-control">
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <textarea class="form-control w-100"
+                                                        placeholder="Leave a comment here"
+                                                        id="my-comment"
+                                                        style="height:7rem;" name="description"></textarea>
+                                            <label for="my-comment">Comentario</label>
+                                        </div>
+
+                                        <div class="hstack justify-content-end gap-2">
+                                            <button type="submit" class="btn btn-sm btn-primary text-uppercase" name="saveComment">
+                                                <i class="bi bi-chat-left-dots-fill"></i>
+                                                Guardar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-3 shadow-lg p-4">
+
+                            <h4 class="mb-4">
+                                <?php 
+                                    include "./config/conexion.php";
+
+                                    $search_comments_for_order = "SELECT * FROM orders INNER JOIN comments ON orders.id_order = comments.id_order WHERE comments.id_order = '$folio'";
+                                    $result_comments_for_order = mysqli_query($conexion, $search_comments_for_order);
+
+                                    $count_comments = mysqli_num_rows($result_comments_for_order);
+
+                                    echo $count_comments;
+
+                                    if($count_comments > 1) {
+                                        echo " Comentarios";
+                                    } else {
+                                        echo " Comentario";
+                                    }
+                                ?>
+                            </h4>
+
+                            <!-- Comment #1 //-->
+                            <div class="">
+                                <?php 
+                                    include "./config/conexion.php";
+                                    
+                                    $show_comments = "SELECT * FROM orders INNER JOIN comments ON orders.id_order = comments.id_order INNER JOIN clients ON clients.id_user = comments.id_user WHERE comments.id_order = '$folio'";
+                                    $result_show_comments = mysqli_query($conexion, $show_comments);
+
+                                    while($rowComments = mysqli_fetch_array($result_show_comments)) {
+                                        $image = $rowComments['image'];
+                                ?>
+                                <div class="py-3">
+                                <div class="d-flex comment">
+                                    <img class="rounded-circle comment-img"
+                                        src="../img/boy.png" />
+                                    <div class="flex-grow-1 ms-3">
+                                        <div class="mb-1"><a href="#" class="fw-bold link-dark me-1"><?php echo $rowComments['name_client']; ?></a> <span class="text-muted text-nowrap"><?php echo date("m/d/Y H:i A", strtotime($rowComments['created_at'])); ?></span></div>
+                                        <img src="<?php echo $rowComments['image']; ?>" alt="" class="img-fluid">
+                                        <div class="mb-2"><?php echo $rowComments['description']; ?></div>
+                                        <div class="hstack align-items-center mb-2">
+                                            
+                                            <a class="link-danger small" href="delete-comment.php?id_comment=<?php echo $rowComments['id_comment']; ?>">Eliminar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                
+                            </div>
+                            <?php }?>
+                            </div>
+
+                
+                
+                
+                                </div>
+                                </div>
+                            </div>
+                            <!-- End comments -->
+                            <?php }?>
+                    </div>
+                </div>
+                </div>
+
+
 
             </div>
-            <br>
-
-            <?php include "./partials/footer.php" ?>
-
         </div>
-
+        <br>
+        <?php include "./partials/footer.php" ?>
     </div>
 
 
