@@ -5,7 +5,7 @@
         session_start();
     }
 
-    $uid = $_SESSION['UID'];
+    $uid2 = $_SESSION['UID2'];
 
     if(isset($_POST['saveComment'])) {
         $search_clients = "SELECT id_user FROM clients";
@@ -40,7 +40,7 @@
         $idUser = $_POST['id_user'];
 
 
-        $query_save_comment = "INSERT INTO comments(id_order, image, description, from_id, to_id, status, created_at, id_user) VALUES('$idOrder', '$ruta', '$description', '$uid', '1', '0', NOW(), '$idClient')";
+        $query_save_comment = "INSERT INTO comments(id_order, image, description, from_id, to_id, status, created_at, id_user) VALUES('$idOrder', '$ruta', '$description', '$uid2', '1', '0', NOW(), '$uid2')";
         $result_comment = mysqli_query($conexion, $query_save_comment);
 
         if($result_comment) {

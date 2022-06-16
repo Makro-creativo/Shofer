@@ -1,3 +1,13 @@
+<?php 
+  include "./config/conexion.php";
+
+  if(!isset($_SESSION)) {
+    session_start();
+  }
+
+  $uid2 = $_SESSION['UID2'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -117,7 +127,22 @@
   <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
   <script src="../js/ruang-admin.min.js"></script>
   <script src="../vendor/chart.js/Chart.min.js"></script>
-  <script src="../js/demo/chart-area-demo.js"></script>  
+  <script src="../js/demo/chart-area-demo.js"></script>
+  <script type="text/javascript">
+      function cleanNotificationAnswer() {
+        $.ajax({
+          url: "./notifications-answer.php",
+          type: "POST",
+          processData:false,
+          success: function(data){
+            $("#notification-count-answer").remove();                  
+          },
+          error: function(error){
+            console.log(error);
+          }           
+        });
+      }                                  
+  </script>
 </body>
 
 </html>

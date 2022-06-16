@@ -116,7 +116,12 @@
                                                     <?php if($typeUser === "Administrador") {?>
                                                         <th>Hora y fecha de entrega</th>
                                                     <?php }?>
+
                                                     <?php if($typeUser === "Administrador") {?>
+                                                        <th>Entegado por</th>
+                                                    <?php }?>
+
+                                                    <?php if($typeUser === "Cliente") {?>
                                                         <th>Entegado por</th>
                                                     <?php }?>
                                                 </tr>
@@ -237,7 +242,7 @@
                                                     <td>
                                                         <?php 
                                                             $query_delivery_chofer = "SELECT * FROM orders INNER JOIN delivery_chofer ON orders.id_order = delivery_chofer.id_order INNER JOIN choferes ON choferes.id_user = delivery_chofer.id_user WHERE orders.id_order = '$idOrder'";
-                                                            $result_delivery_chofer = mysqli_query($conexion, $query_delivery_for_admin);
+                                                            $result_delivery_chofer = mysqli_query($conexion, $query_delivery_chofer);
 
                                                             $data_delivery_chofer = mysqli_fetch_array($result_delivery_chofer);
                                                             $number_data_delivery_chofer = mysqli_num_rows($result_delivery_chofer);

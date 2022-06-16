@@ -234,6 +234,54 @@
   </li>
   <!-- End Notifications comments --> 
   <?php }?>
+  
+  <!--<?php if($typeUser === "Cliente") {?>
+  //Notifications answers for clients
+  <li class="nav-item dropdown no-arrow mx-1">
+      <a class="nav-link dropdown-toggle" href="new-orders.php" id="alertsDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <i class="bi bi-bell-fill" onclick="cleanNotificationAnswer()"></i>
+        <span class="badge badge-danger badge-counter" id="notification-count-answer">
+          <?php 
+            $search_notification_count = "SELECT * FROM answers WHERE status = 0";
+            $result_notification_count = mysqli_query($conexion, $search_notification_count);
+
+            $count_notification = mysqli_num_rows($result_notification_count);
+
+            echo $count_notification;
+          ?>
+        </span>
+      </a>
+    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+      aria-labelledby="alertsDropdown">
+      <h6 class="dropdown-header">
+        Notificaciones
+      </h6>
+      <?php 
+        $data_of_notifications = "SELECT * FROM orders INNER JOIN answers ON orders.id_order = answers.id_order INNER JOIN comments ON comments.id_comment = answers.id_comment WHERE answers.id_comment = '$uid2'";
+        $result_of_notifications = mysqli_query($conexion, $data_of_notifications);
+
+        while($rowNotification = mysqli_fetch_array($result_of_notifications)) {
+      ?>
+        <a class="dropdown-item d-flex align-items-center" href="show-order-for-id.php?id_order=<?php echo $rowNotification['id_order']; ?>">
+          <div class="mr-3">
+            <div class="icon-circle bg-primary">
+             <i class="bi bi-chat-left-dots-fill text-white"></i>
+            </div>
+          </div>
+          <div>
+            <div class="small text-gray-500"><?php echo date("m/d/Y h:i A", strtotime($rowNotification['created_at'])); ?></div>
+              <span class="font-weight-bold">Se respondio a tu comentario</span>
+            </div>
+        </a>
+      <?php }?>
+    
+      <a class="dropdown-item text-center small text-gray-500" href="show-notification-delivery.php">Mostrar todas las notificaciones</a>
+    </div>
+  </li>
+  // End notifications answers for clients
+  <?php }?>-->
+  
             
   <div class="topbar-divider d-none d-sm-block"></div>
       <li class="nav-item dropdown no-arrow">

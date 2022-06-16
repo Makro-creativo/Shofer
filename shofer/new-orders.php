@@ -20,12 +20,33 @@
         $nameAndPhone = $_POST['name_and_phone'];
         $references_coto = $_POST['references_coto'];
 
-        $query_save_order = "INSERT INTO orders(date_send, person_receive, colonia, cruce_calles, name_flower, phone, name_encargado, adress, from_id, to_id, status, id_user, name_and_phone, references_coto) VALUES('$dateSend', '$personReceive', '$colonia', '$cruceCalles', '$nameFlower', '$phone', '$nameEncargado', '$adress', '$uid', '1', '0', '$uid', '$nameAndPhone', '$references_coto')";
+        //imagen
+        $directorio = "assets/images/"; 
+        $nombreDoc = $_FILES['image']['name'];
+        
+        $formatosDoc = array('.JPG','.jpg','.png','.PNG','.PDF','.pdf','.docx'); //formatos a admitir
+        $tmpDoc = $_FILES['image']['tmp_name']; //Nombre temporal del archivo
+        $extension = substr($nombreDoc, strrpos($nombreDoc,'.'));   //Para cortar la caden y obtener solo la 
+                                    
+        $ruta = $directorio.$nombreDoc; 
+    
+        if(in_array($extension, $formatosDoc)){ //Verifica que se encuente la extension o un valor en el arreglo
+            $nombreDoc = html_entity_decode($nombreDoc);
+            if(move_uploaded_file($_FILES['image']['tmp_name'], $ruta)){
+                //Se subio img
+            } else {
+                echo "no se movio";
+            }
+        } else {
+            echo "no es la extension";
+        }
+
+        echo $query_save_order = "INSERT INTO orders(date_send, person_receive, colonia, cruce_calles, name_flower, phone, name_encargado, adress, from_id, to_id, status, id_user, name_and_phone, references_coto, image) VALUES('$dateSend', '$personReceive', '$colonia', '$cruceCalles', '$nameFlower', '$phone', '$nameEncargado', '$adress', '$uid', '1', '0', '$uid', '$nameAndPhone', '$references_coto', '$ruta')";
         $result_save_order = mysqli_query($conexion, $query_save_order);
 
-        if($result_save_order) {
+        /*if($result_save_order) {
             echo "<script>window.location='new-orders.php?bien'; </script>";
-        }
+        }*/
     }
 ?>
 
@@ -143,6 +164,7 @@
                                                     <th>Dirección</th>
                                                     <th>Nombre y teléfono de quién envía</th>
                                                     <th>Referencias de tu domicilio</th>
+                                                    <th>Imagen del ramo</th>
 
                                                     <?php if($typeUser === "Cliente") {?>
                                                         <th>Editar</th>
@@ -198,7 +220,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="new-orders.php" method="POST">
+                        <form action="new-orders.php" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="id_user_Active" value="<?php echo $uid; ?>">
                             <div class="row">
                                 <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
@@ -221,13 +243,6 @@
                                         <input type="text" placeholder="Ejemplo: 33311324567, etc..." class="form-control" name="phone">
                                     </div>
                                 </div>
-
-                                <!--<div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
-                                    <div class="form-group">
-                                        <label>Colonia: </label>
-                                        <input type="text" placeholder="Ejemplo: La moderna, etc..." class="form-control" name="colonia">
-                                    </div>
-                                </div>-->
                             </div>
 
                             <div class="row">
@@ -279,6 +294,15 @@
                                     <div class="form-group">
                                         <label>Referencias de tu domicilio: </label>
                                         <input type="text" placeholder="Ejemplo: Esta cerca de un coto, enfrenta está un súper, etc..." class="form-control" name="references_coto">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12 col-xxl-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Imagen del ramo: </label>
+                                        <input type="file" name="image" class="form-control">
                                     </div>
                                 </div>
                             </div>

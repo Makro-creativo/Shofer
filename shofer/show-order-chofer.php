@@ -88,6 +88,7 @@
                                                     <th>Dirección</th>
                                                     <th>Nombre y teléfono de quién envía</th>
                                                     <th>Referencias de tu domicilio</th>
+                                                    <th>Imagen del ramo</th>
 
                                                     <?php if($typeUser === "Cliente") {?>
                                                         <th>Editar</th>
@@ -147,6 +148,7 @@
                                                     <td><?php echo $row['adress']; ?></td>
                                                     <td><?php echo $row['name_and_phone']; ?></td>
                                                     <td><?php echo $row['references_coto']; ?></td>
+                                                    <td><img src="<?php echo $row['image']; ?>" alt="" class="img-fluid"></td>
                                                     <?php if($typeUser === "Cliente") {?>
                                                         <td>
                                                             <a href="edit-order.php?id_order=<?php echo $row['id_order']; ?>" class="btn btn-success">

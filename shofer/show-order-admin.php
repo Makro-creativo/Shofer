@@ -42,6 +42,7 @@
         <td><?php echo $row['adress']; ?></td>
         <td><?php echo $row['name_and_phone']; ?></td>
         <td><?php echo $row['references_coto']; ?></td>
+        <td><img src="<?php echo $row['image']; ?>" alt="" class="img-fluid"></td>
         
         <?php if($typeUser === "Cliente") {?>
             <td>

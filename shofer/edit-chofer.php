@@ -1,11 +1,10 @@
 <?php 
     include "./config/conexion.php";
 
+    error_reporting(0);
+
     if(isset($_POST['edit'])) {
-        $idChoferEdit = $_POST['id_chofer_edit'];
-        $arrayChoferEdit = explode("_", $idChoferEdit);
-        $idNameChoferEdit = $arrayUserEdit[0];
-        
+        $idChoferEdit = $_POST['id_chofer_edit'];        
         $name = $_POST['name'];
         $phone = $_POST['phone'];
         $vehicle = $_POST['vehicle'];
@@ -36,13 +35,54 @@
              echo "no es la extension";
          }
 
-        echo $query_update_chofer = "UPDATE choferes SET id_user='$idChoferEdit', name='$name', phone='$phone', vehicle='$vehicle', plates='$plates', adress='$adress', account_number='$accountNumber', price='$price', kilometer='$kilometer',
-        '$ruta' WHERE id_user = '$idChoferEdit'";
+         //imagen 2
+         $directorio2 = "assets/images/"; 
+         $nombreDoc2 = $_FILES['image_url_circulacion']['name'];
+         
+         $formatosDoc2 = array('.JPG','.jpg','.png','.PNG','.PDF','.pdf','.docx'); //formatos a admitir
+         $tmpDoc2 = $_FILES['image_url_circulacion']['tmp_name']; //Nombre temporal del archivo
+         $extension2 = substr($nombreDoc2, strrpos($nombreDoc2,'.'));   //Para cortar la caden y obtener solo la 
+                                     
+         $ruta2 = $directorio2.$nombreDoc2; 
+     
+         if(in_array($extension2, $formatosDoc2)){ //Verifica que se encuente la extension o un valor en el arreglo
+             $nombreDoc2 = html_entity_decode($nombreDoc2);
+             if(move_uploaded_file($_FILES['image_url_circulacion']['tmp_name'], $ruta2)){
+                 //Se subio img
+             } else {
+                 echo "no se movio";
+             }
+         } else {
+             echo "no es la extension";
+         }
+
+         //imagen 3
+         $directorio3 = "assets/images/"; 
+         $nombreDoc3 = $_FILES['image_url_person']['name'];
+         
+         $formatosDoc3 = array('.JPG','.jpg','.png','.PNG','.PDF','.pdf','.docx'); //formatos a admitir
+         $tmpDoc3 = $_FILES['image_url_person']['tmp_name']; //Nombre temporal del archivo
+         $extension3 = substr($nombreDoc3, strrpos($nombreDoc3,'.'));   //Para cortar la caden y obtener solo la 
+                                     
+         $ruta3 = $directorio3.$nombreDoc3; 
+     
+         if(in_array($extension3, $formatosDoc3)){ //Verifica que se encuente la extension o un valor en el arreglo
+             $nombreDoc3 = html_entity_decode($nombreDoc3);
+             if(move_uploaded_file($_FILES['image_url_person']['tmp_name'], $ruta3)){
+                 //Se subio img
+             } else {
+                 echo "no se movio";
+             }
+         } else {
+             echo "no es la extension";
+         }
+
+        $query_update_chofer = "UPDATE choferes SET name='$name', phone='$phone', vehicle='$vehicle', plates='$plates', adress='$adress', account_number='$accountNumber', price='$price', kilometer='$kilometer', image_url='$ruta', image_url_circulacion='$ruta2', image_url_person='$ruta3' WHERE id_user = '$idChoferEdit'";
         $result_update_chofer = mysqli_query($conexion, $query_update_chofer);
 
-        /*if($result_update_chofer) {
+        if($result_update_chofer) {
             echo "<script>window.location='edit-chofer.php?bien'; </script>";
-        }*/
+        }
     }
 ?>
 
@@ -144,7 +184,7 @@
                                 </div>
 
                                 <div class="card-body">
-                                    <form action="edit-chofer.php" method="POST">
+                                    <form action="edit-chofer.php" method="POST" enctype="multipart/form-data">
                                         <input type="hidden" name="id_chofer_edit" value="<?php echo $idUser; ?>">
                                         <div class="row">
                                             <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
@@ -212,10 +252,25 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Foto del ine: </label>
-                                                    <input type="file" name="image_url" class="form-control">
+                                                    <input type="file" class="form-control" name="image_url">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
+                                                <div class="form-group">
+                                                <label class="form-label">Foto de circulación: </label>
+                                                <input type="file" class="form-control" name="image_url_circulacion">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                <div class="form-group">
+                                                    <label class="form-label">Foto personal: </label>
+                                                    <input type="file" class="form-control" name="image_url_person">
                                                 </div>
                                             </div>
                                         </div>

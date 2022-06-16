@@ -5,12 +5,24 @@
         session_start();
     }
 
+    error_reporting(0);
+
     $name = $_SESSION['name'];
     $username = $_SESSION['username'];
     $typeUser = $_SESSION['Type'];
+    $uid = $_SESSION['UID'];
 
     if(isset($_POST['editProfile'])) {
-        
+        $idUserEdit = $_POST['id_profile_edit'];
+        $name = $_POST['name'];
+        $username = $_POST['username'];
+
+        $query_update_user = "UPDATE users SET name='$name', username='$username' WHERE id = '$idUserEdit'";
+        $result_update_user = mysqli_query($conexion, $query_update_user);
+
+        if($result_update_user) {
+            echo "<script>window.location='profile.php?success'; </script>";
+        }
     }
 ?>
 
@@ -56,23 +68,40 @@
 </head>
 <body id="page-top">
     <div id="wrapper">
+        <?php   
+            if(isset($_GET['success'])){
+        ?>
+            <script>
+                Swal.fire({
+                    title: 'Listo',
+                    text: 'Se actualizo el perfil correctamente!',
+                    icon: 'success',
+                        confirmButtonText: 'Ok'
+                    })
+                    .then(function() {
+                        window.location = "profile.php";
+                });
+            </script>
+        <?php } ?>
+
         <?php include "./partials/menuLeft.php" ?>
 
         <?php 
-            $idUser = (!empty ($_GET['id']) ) ? $_GET['id'] : NULL;   
-                                                                                                                                                                          
-            if ($idUser) {                                                       
-                include "./config/conexion.php";    
-                                                     
-                $sql = "SELECT * FROM users WHERE id = '$idUser'"; 
-                $result = mysqli_query($conexion, $sql);
-                
-                if($result) {
-                    $row = mysqli_fetch_array($result);
-                    
-                    $id = $row['id'];
+            include "./config/conexion.php";
+
+            if(isset($_GET['id'])) {
+                $id = $_GET['id'];
+
+                $search_users = "SELECT * FROM users WHERE id = '$id'";
+                $result_user = mysqli_query($conexion, $search_users);
+
+                if($result_user) {
+                    $rowUsers = mysqli_fetch_array($result_user);
+
+                    $username = $rowUsers['username'];
+                    $name = $rowUsers['name'];
                 }
-            } 
+            }
         ?>
 
         <div id="content-wrapper" class="d-flex flex-column">
@@ -82,7 +111,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="d-flex justify-content-between align-items-center mb-4">
-                            <h2 class="text-dark">Configuración de la cuenta</h2>
+                            <h2 class="text-dark">Perfil</h2>
 
                             <?php if($typeUser === "Administrador") {?>
                                 <a href="DashboardAdmin.php" class="btn btn-secondary btn-sm">
@@ -106,7 +135,7 @@
                             <?php }?>
                         </div>
 
-                        <div class="col-md-5 col-sm-12 col-lg-5 col-xl-5 col-xxl-5 mt-4">
+                        <div class="col-md-5 col-sm-12 col-lg-5 col-xl-5 col-xxl-5 mt-4 mx-auto">
                             <div class="card shadow-lg p-2">
                                 <img src="../img/boy.png" alt="Photo profile" class="card-img-top img-circle p-2">
 
@@ -131,37 +160,6 @@
 
                                     <a href="logout.php" class="btn btn-danger btn-block mt-4">Cerrar sesión</a>
                                     
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-7 col-sm-12 col-lg-7 col-xl-7 col-xxl-7 mt-4">
-                            <div class="card shadow-lg">
-                                <h2 class="p-4 text-center text-dark">Editar perfil</h2>
-                                <div class="card-body">
-                                    <form action="profile.php" method="POST">
-                                        <input type="hidden" name="id_profile_edit" value="<?php echo $id; ?>">
-                                        <div class="row">
-                                            <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                <div class="form-group">
-                                                    <label>Nombre completo: </label>
-                                                    <input value="<?php echo $name; ?>" type="text" name="name" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                <div class="form-group">
-                                                    <label>Nombre de usuario: </label>
-                                                    <input value="<?php echo $username; ?>" type="text" name="username" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <input type="submit" value="Actualizar perfil" class="btn btn-primary btn-block" name="editProfile">
-                                    </form>
                                 </div>
                             </div>
                         </div>

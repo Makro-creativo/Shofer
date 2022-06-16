@@ -25,6 +25,16 @@
         <td><?php echo $row['adress']; ?></td>
         <td><?php echo $row['name_and_phone']; ?></td>
         <td><?php echo $row['references_coto']; ?></td>
+        <td>
+            <img src="<?php echo $row['image']; ?>" alt="" class="img-fluid">
+        </td>
+
+        <div id="modal" class="modal">
+            <span id="modal-close" class="modal-close">&times;</span>
+            <img id="modal-content" class="modal-content">
+            <div id="modal-caption" class="modal-caption"></div>
+            </div>
+
         <?php if($typeUser === "Cliente") {?>
             <td>
                 <a href="edit-order.php?id_order=<?php echo $row['id_order']; ?>" class="btn btn-success">
@@ -35,7 +45,7 @@
 
         <?php if($typeUser === "Cliente") {?>
             <td>
-                <a href="edit-order.php?id_order=<?php echo $row['id_order']; ?>" class="btn btn-danger">
+                <a href="delete-order.php?id_order=<?php echo $row['id_order']; ?>" class="btn btn-danger">
                     <i class="bi bi-trash"></i>
                 </a>
             </td>
@@ -50,3 +60,4 @@
         <?php }?>
     </tr>
 <?php }?>
+

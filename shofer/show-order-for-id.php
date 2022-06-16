@@ -8,6 +8,8 @@
     }
 
     $typeUser = $_SESSION['Type'];
+    $uid = $_SESSION['UID'];
+    $uid2 = $_SESSION['UID2'];
 ?>
 
 <!DOCTYPE html>
@@ -53,12 +55,29 @@
         height: var(--comment-img-size-sm);
     }
 
+    
   </style>
 </head>
 <body id="page-top">
     <div id="wrapper">
         <?php   
             if(isset($_GET['exito'])){
+        ?>
+            <script>
+                Swal.fire({
+                    title: 'Listo',
+                    text: 'Se guardo correctamente!',
+                    icon: 'success',
+                        confirmButtonText: 'Ok'
+                    })
+                    .then(function() {
+                        window.location = "new-orders.php";
+                });
+            </script>
+        <?php } ?>
+
+        <?php   
+            if(isset($_GET['success'])){
         ?>
             <script>
                 Swal.fire({
@@ -159,6 +178,8 @@
 
                                             </div>
 
+                                            
+
                                             <!--<div class="table-responsive-sm">
                                                 <table class="table table-sm table-striped">
                                                     <thead>
@@ -255,36 +276,7 @@
                 <!-- Start Comments -->
                 <div class="app container py-4">
                     <div class="col-md-10 col-lg-8 m-auto">
-                        <div class="bg-white rounded-3 shadow-lg p-4 mb-4">
-                            <!-- New Comment //-->
-                            <div class="d-flex">
-                               <form action="create-comment.php" method="POST" enctype="multipart/form-data">
-                                   <input type="hidden" name="id_order_comment" value="<?php echo $folio; ?>">
-                                <div class="flex-grow-1">
-                                    <div class="hstack gap-2 mb-1">
-                                        <a href="#" class="fw-bold link-dark">Realizar comentario</a>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="file" name="image" class="form-control">
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <textarea class="form-control w-100"
-                                                    placeholder="Leave a comment here"
-                                                    id="my-comment"
-                                                    style="height:7rem;" name="description"></textarea>
-                                        <label for="my-comment">Comentario</label>
-                                    </div>
-
-                                    <div class="hstack justify-content-end gap-2">
-                                        <button type="submit" class="btn btn-sm btn-primary text-uppercase" name="saveComment">
-                                            <i class="bi bi-chat-left-dots-fill"></i>
-                                            Guardar
-                                        </button>
-                                    </div>
-                                </div>
-                               </form>
-                            </div>
-                        </div>
+                        
                         <div class="bg-white rounded-3 shadow-lg p-4">
 
                         <h4 class="mb-4"> 
@@ -299,6 +291,8 @@
                                 echo $count_comments;
 
                                 if($count_comments > 1) {
+                                    echo " Comentarios";
+                                } else if($count_comments === 0) {
                                     echo " Comentarios";
                                 } else {
                                     echo " Comentario";
@@ -323,11 +317,52 @@
                                 <div class="flex-grow-1 ms-3">
                                     <div class="mb-1"><a href="#" class="fw-bold link-dark me-1"><?php echo $rowComments['name_client']; ?></a> <span class="text-muted text-nowrap"><?php echo $rowComments['created_at']; ?></span></div>
                                     <div class="mb-2"><?php echo $rowComments['description']; ?></div>
+                                    <img src="<?php echo $rowComments['image']; ?>" alt="" class="img-fluid" style="with: 140px; height: 80px;">
                                 </div>
                             </div>
                         
                         <?php }?>
+
+                            <!--<div class="d-flex comment py-4">
+                                <?php 
+                                    include "./config/conexion.php";
+                                    
+                                    $search_answer = "SELECT * FROM orders INNER JOIN answers ON orders.id_order = answers.id_order INNER JOIN comments ON comments.id_comment = answers.id_comment WHERE answers.id_order = '$folio'";
+                                    $result_answers = mysqli_query($conexion, $search_answer);
+
+                                    while($rowAnswers = mysqli_fetch_array($result_answers)) {
+                                ?>
+                                <img class="rounded-circle comment-img"
+                                    src="../img/boy.png" />
+                                <div class="flex-grow-1 ms-3">
+                                    <div class="mb-1"><a href="#" class="fw-bold link-dark me-1">Fernando</a> <span class="text-muted text-nowrap"><?php echo $rowAnswers['created_at']; ?></span></div>
+                                    <div class="mb-2"><?php echo $rowAnswers['message']; ?></div>
+                                    <div class="hstack align-items-center mb-2">
+                                        <a class="link-danger small" href="delete-answer.php?id=<?php echo $rowAnswers['id']; ?>">Eliminar</a>
+                                    </div>
+                                </div>
+
+                                <?php }?>
+                            </div>-->
                         </div>
+                        
+                        <!--<?php if($typeUser === "Administrador") {?>
+                            <form action="new-answer.php" method="POST">
+                                <input type="hidden" name="id_order_answer" value="<?php echo $folio; ?>">
+                                <div class="col-md-10 col-lg-8m-auto">
+                                    <div class="form-group">
+                                        <label>Responder: </label>
+                                        <input type="text" placeholder="Responder comentario..." class="form-control" name="message">
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary" name="saveAnswer">
+                                        <i class="bi bi-chat-left-dots-fill"></i>
+                                        Responder
+                                    </button>
+                                </div>
+                            </form>
+                        <?php }?>-->
+
                         </div>
 
             
@@ -388,6 +423,8 @@
 
                                     if($count_comments > 1) {
                                         echo " Comentarios";
+                                    } else if($count_comments === 0) {
+                                        echo " Comentarios";
                                     } else {
                                         echo " Comentario";
                                     }
@@ -414,7 +451,6 @@
                                         <img src="<?php echo $rowComments['image']; ?>" alt="" class="img-fluid">
                                         <div class="mb-2"><?php echo $rowComments['description']; ?></div>
                                         <div class="hstack align-items-center mb-2">
-                                            
                                             <a class="link-danger small" href="delete-comment.php?id_comment=<?php echo $rowComments['id_comment']; ?>">Eliminar</a>
                                         </div>
                                     </div>
@@ -422,6 +458,24 @@
                 
                             </div>
                             <?php }?>
+
+                            <!--<div class="d-flex comment py-4">
+                                <?php 
+                                    include "./config/conexion.php";
+                                    
+                                    $search_answer = "SELECT * FROM orders INNER JOIN answers ON orders.id_order = answers.id_order INNER JOIN comments ON comments.id_comment = answers.id_comment WHERE answers.id_order = '$folio'";
+                                    $result_answers = mysqli_query($conexion, $search_answer);
+
+                                    while($rowAnswers = mysqli_fetch_array($result_answers)) {
+                                ?>
+                                <img class="rounded-circle comment-img"
+                                    src="../img/boy.png" />
+                                <div class="flex-grow-1 ms-3">
+                                    <div class="mb-1"><a href="#" class="fw-bold link-dark me-1">Fernando</a> <span class="text-muted text-nowrap"><?php echo $rowAnswers['created_at']; ?></span></div>
+                                    <div class="mb-2"><?php echo $rowAnswers['message']; ?></div>
+                                </div>
+                                <?php }?>
+                            </div>-->
                             </div>
 
                 
