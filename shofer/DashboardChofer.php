@@ -146,6 +146,22 @@
         });
       }                                  
   </script> 
+
+  <script type="text/javascript">
+      function cleanNotificationinbox() {
+        $.ajax({
+          url: "./notifications-inbox-chofer.php",
+          type: "POST",
+          processData:false,
+          success: function(data){
+            $("#notification-count-inbox").remove();                  
+          },
+          error: function(error){
+            console.log(error);
+          }           
+        });
+      }                                  
+  </script> 
 </body>
 
 </html>

@@ -245,5 +245,20 @@
         });
       }                                  
   </script> 
+  <script type="text/javascript">
+      function cleanNotificationInboxAdmin() {
+        $.ajax({
+          url: "./notifications-for-admin.php",
+          type: "POST",
+          processData:false,
+          success: function(data){
+            $("#notification-count-inbox-admin").remove();                  
+          },
+          error: function(error){
+            console.log(error);
+          }           
+        });
+      }                                  
+  </script> 
 </body>
 </html>

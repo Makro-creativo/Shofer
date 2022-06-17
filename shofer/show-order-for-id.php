@@ -317,7 +317,7 @@
                                 <div class="flex-grow-1 ms-3">
                                     <div class="mb-1"><a href="#" class="fw-bold link-dark me-1"><?php echo $rowComments['name_client']; ?></a> <span class="text-muted text-nowrap"><?php echo $rowComments['created_at']; ?></span></div>
                                     <div class="mb-2"><?php echo $rowComments['description']; ?></div>
-                                    <img src="<?php echo $rowComments['image']; ?>" alt="" class="img-fluid" style="with: 140px; height: 80px;">
+                                    <a href="show-image-comments.php?id_comment=<?php echo $rowComments['id_comment']; ?>"><img src="<?php echo $rowComments['image']; ?>" alt="" class="img-fluid" style="with: 140px; height: 80px;"></a>
                                 </div>
                             </div>
                         
@@ -448,7 +448,7 @@
                                         src="../img/boy.png" />
                                     <div class="flex-grow-1 ms-3">
                                         <div class="mb-1"><a href="#" class="fw-bold link-dark me-1"><?php echo $rowComments['name_client']; ?></a> <span class="text-muted text-nowrap"><?php echo date("m/d/Y H:i A", strtotime($rowComments['created_at'])); ?></span></div>
-                                        <img src="<?php echo $rowComments['image']; ?>" alt="" class="img-fluid">
+                                        <a href="show-image-comments.php?id_comment=<?php echo $rowComments['id_comment']; ?>"><img src="<?php echo $rowComments['image']; ?>" alt="" class="img-fluid"></a>
                                         <div class="mb-2"><?php echo $rowComments['description']; ?></div>
                                         <div class="hstack align-items-center mb-2">
                                             <a class="link-danger small" href="delete-comment.php?id_comment=<?php echo $rowComments['id_comment']; ?>">Eliminar</a>

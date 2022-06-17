@@ -234,6 +234,101 @@
   </li>
   <!-- End Notifications comments --> 
   <?php }?>
+
+  <?php if($typeUser === "Chofer") {?>
+    <!-- Notifications chofer inbox -->
+    <li class="nav-item dropdown no-arrow mx-1">
+      <a class="nav-link dropdown-toggle" href="new-orders.php" id="alertsDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <i class="bi bi-inbox-fill" onclick="cleanNotificationinbox()"></i>
+        <span class="badge badge-danger badge-counter" id="notification-count-inbox">
+          <?php 
+            $search_notification_count = "SELECT * FROM inbox WHERE status = 0 AND id_user = '$uid2'";
+            $result_notification_count = mysqli_query($conexion, $search_notification_count);
+
+            $count_notification = mysqli_num_rows($result_notification_count);
+
+            echo $count_notification;
+          ?>
+        </span>
+      </a>
+    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+      aria-labelledby="alertsDropdown">
+      <h6 class="dropdown-header">
+        Notificaciones de mensajes
+      </h6>
+      <?php 
+        $data_of_notifications = "SELECT * FROM users INNER JOIN inbox ON users.id_user = inbox.id_user WHERE inbox.id_user = '$uid2' AND type = 'Chofer' ORDER BY created_at DESC LIMIT 10";
+        $result_of_notifications = mysqli_query($conexion, $data_of_notifications);
+
+        while($rowNotification = mysqli_fetch_array($result_of_notifications)) {
+      ?>
+        <a class="dropdown-item d-flex align-items-center" href="show-inbox-for-id.php?id=<?php echo $rowNotification['id']; ?>">
+          <div class="mr-3">
+            <div class="icon-circle bg-primary">
+              <i class="bi bi-inbox-fill text-white"></i>
+            </div>
+          </div>
+          <div>
+            <div class="small text-gray-500"><?php echo date("m/d/Y h:i A", strtotime($rowNotification['created_at'])); ?></div>
+              <span class="font-weight-bold"><?php echo $rowNotification['asunto']; ?></span>
+            </div>
+        </a>
+      <?php }?>
+    
+      <a class="dropdown-item text-center small text-gray-500" href="new-inbox.php">Mostrar todas las notificaciones</a>
+    </div>
+  </li>
+  <!-- End Notifications chofer inbox --> 
+  <?php }?>
+
+  <?php if($typeUser === "Administrador") {?>
+    <!-- Notifications admin inbox -->
+    <li class="nav-item dropdown no-arrow mx-1">
+      <a class="nav-link dropdown-toggle" href="new-orders.php" id="alertsDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <i class="bi bi-inbox-fill" onclick="cleanNotificationInboxAdmin()"></i>
+        <span class="badge badge-danger badge-counter" id="notification-count-inbox-admin">
+          <?php 
+            $search_notification_count = "SELECT * FROM inbox_admin WHERE status = 0";
+            $result_notification_count = mysqli_query($conexion, $search_notification_count);
+
+            $count_notification = mysqli_num_rows($result_notification_count);
+
+            echo $count_notification;
+          ?>
+        </span>
+      </a>
+    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+      aria-labelledby="alertsDropdown">
+      <h6 class="dropdown-header">
+        Notificaciones de mensajes
+      </h6>
+      <?php 
+        $data_of_notifications = "SELECT * FROM inbox_admin INNER JOIN choferes ON inbox_admin.id_user = choferes.id_user ORDER BY created_at DESC LIMIT 10";
+        $result_of_notifications = mysqli_query($conexion, $data_of_notifications);
+
+        while($rowNotification = mysqli_fetch_array($result_of_notifications)) {
+      ?>
+        <a class="dropdown-item d-flex align-items-center" href="show-inbox-for-admin.php?id=<?php echo $rowNotification['id']; ?>">
+          <div class="mr-3">
+            <div class="icon-circle bg-primary">
+              <i class="bi bi-inbox-fill text-white"></i>
+            </div>
+          </div>
+          <div>
+            <div class="small text-gray-500"><?php echo date("m/d/Y h:i A", strtotime($rowNotification['created_at'])); ?></div>
+              <span class="font-weight-bold"><?php echo $rowNotification['name']; ?></span><br>
+              <small class="font-weight-bold"><?php echo $rowNotification['asunto']; ?></small>
+            </div>
+        </a>
+      <?php }?>
+    
+      <a class="dropdown-item text-center small text-gray-500" href="new-inbox.php">Mostrar todas las notificaciones</a>
+    </div>
+  </li>
+  <!-- End Notifications admin inbox --> 
+  <?php }?>
   
   <!--<?php if($typeUser === "Cliente") {?>
   //Notifications answers for clients
