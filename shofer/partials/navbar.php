@@ -81,7 +81,7 @@
             </div>
           </div>
           <div>
-            <div class="small text-gray-500"><?php echo date("m/d/Y", strtotime($rowNotification['created_at'])); ?></div>
+            <div class="small text-gray-500"><?php echo date("m/d/Y h:i A", strtotime($rowNotification['created_at'])); ?></div>
               <span class="font-weight-bold">Se te asigno un servicio con folio: <?php echo "00".$folio; ?></span>
             </div>
         </a>
@@ -128,7 +128,7 @@
             </div>
           </div>
           <div>
-            <div class="small text-gray-500"><?php echo date("m/d/Y", strtotime($rowNotification['date_send'])); ?></div>
+            <div class="small text-gray-500"><?php echo date("m/d/Y h:i A", strtotime($rowNotification['created_date'])); ?></div>
               <span class="font-weight-bold"><?php echo $rowNotification['name_flower']; ?></span>
             </div>
         </a>
@@ -382,7 +382,7 @@
       <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
-          <img class="img-profile rounded-circle" src="../img/boy.png" style="max-width: 60px">
+          <img class="img-profile rounded-circle" src="./assets/images/foto-fer.jpg" style="max-width: 60px">
           <span class="ml-2 d-none d-lg-inline text-white small"><?php echo $name; ?></span>
         </a>
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

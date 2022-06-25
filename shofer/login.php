@@ -26,7 +26,7 @@
     }
 
     .form-opacity {
-      opacity: 0.4;
+      opacity: 0.8;
     }
 
     .mt-6 {
@@ -78,6 +78,15 @@
                       </button>
                     </div>
                     
+                    <div class="d-flex justify-content-center align-items-center">
+                      <a href="/shofer/shofer" class="text-secondary">
+                        <p class="text-center" style="font-size: 20px;">
+                          <i class="bi bi-arrow-left-circle-fill" style="font-size: 20px;"></i>
+                          Regresar a incio
+                        </p>
+                      </a>
+                    </div>
+
                   </form>
                 </div>
               </div>

@@ -75,7 +75,7 @@
                       </div>
                     </div>
                     <div class="col-auto">
-                        <i class="bi bi-truck-flatbed fa-2x text-primary"></i>
+                      <i class="bi bi-flower2 fa-2x text-primary"></i>
                     </div>
                   </div>
                 </div>

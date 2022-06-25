@@ -15,7 +15,8 @@
         $adress = $_POST['adress'];
         $accountNumber = $_POST['account_number'];
         $price = $_POST['price'];
-        $kilometer = $_POST['kilometer'];
+        $cardNumber = $_POST['card_number'];
+        $bank = $_POST['bank'];
 
         //imagen Ine
         $directorio = "assets/images/"; 
@@ -81,7 +82,7 @@
          }
     
 
-        $query_save_choferes = "INSERT INTO choferes(name, phone, vehicle, plates, adress, account_number, price, kilometer, image_url, image_url_circulacion, image_url_person) VALUES('$name', '$phone', '$vehicle', '$plates', '$adress', '$accountNumber', '$price', '$kilometer', '$ruta', '$ruta2', '$ruta3')";
+        $query_save_choferes = "INSERT INTO choferes(name, phone, vehicle, plates, adress, account_number, price, card_number, bank, image_url, image_url_circulacion, image_url_person) VALUES('$name', '$phone', '$vehicle', '$plates', '$adress', '$accountNumber', '$price', '$cardNumber', '$bank', '$ruta', '$ruta2', '$ruta3')";
         $result_save_choferes = mysqli_query($conexion, $query_save_choferes);
 
         if($result_save_choferes) {
@@ -172,12 +173,12 @@
                                                     <th>Placas</th>
                                                     <th>Dirección</th>
                                                     <th>Número de cuenta</th>
-                                                    <th>Precio</th>
-                                                    <th>Kilometros</th>
-                                                    <th>Foto del ine</th>
-                                                    <th>Foto de circulación</th>
+                                                    <th>Número de tarjeta</th>
+                                                    <th>Banco</th>
+                                                    <th>Precio por Kilometro</th>
+                                                    <th>Foto de Ine</th>
+                                                    <th>Tarejta de circulación</th>
                                                     <th>Foto personal</th>
-                                                    <th>Total a pagar</th>
 
                                                     <?php if($typeUser === "Administrador") {?>
                                                         <th>Editar</th>
@@ -212,8 +213,9 @@
                                                     <td><?php echo $row['plates']; ?></td>
                                                     <td><?php echo $row['adress']; ?></td>
                                                     <td><?php echo $row['account_number']; ?></td>
+                                                    <td><?php echo $row['card_number']; ?></td>
+                                                    <td><?php echo $row['bank']; ?></td>
                                                     <td><?php echo number_format($row['price'], 2); ?></td>
-                                                    <td><?php echo $row['kilometer']; ?> Kilometros</td>
                                                     <td>
                                                         <img src="<?php echo $row['image_url']; ?>" alt="" class="img-fluid">
                                                     </td>
@@ -222,13 +224,6 @@
                                                     </td>
                                                     <td>
                                                         <img src="<?php echo $row['image_url_person']; ?>" alt="" class="img-fluid">
-                                                    </td>
-                                                    <td>
-                                                        <?php 
-                                                            $total = $row['price']*$row['kilometer'];
-
-                                                            echo number_format($total, 2);
-                                                        ?>
                                                     </td>
 
                                                     <?php if($typeUser === "Administrador") {?>
@@ -314,7 +309,7 @@
                                 <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                     <div class="form-group">
                                         <label>Número de cuenta: </label>
-                                        <input type="text" placeholder="Ejemplo: 4242424242424242, etc..." class="form-control" name="account_number">
+                                        <input type="text" placeholder="Número de cuenta bancaría..." class="form-control" name="account_number">
                                     </div>
                                 </div>
                             </div>
@@ -322,42 +317,51 @@
                             <div class="row">
                                 <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                     <div class="form-group">
-                                        <label>Precio: </label>
+                                        <label>Número de tarjeta: </label>
+                                        <input type="text" placeholder="Número de tarjeta de crédito..." class="form-control" name="card_number">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
+                                    <div class="form-group">
+                                        <label>Banco: </label>
+                                        <input type="text" placeholder="Nombre del banco..." class="form-control" name="bank">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
+                                    <div class="form-group">
+                                        <label>Precio por kilometro: </label>
                                         <input type="text" placeholder="Ejemplo: 12, etc..." class="form-control" name="price">
                                     </div>
                                 </div>
-
+                                
                                 <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                     <div class="form-group">
-                                        <label>Kilometros: </label>
-                                        <input type="number" placeholder="Ejemplo: 10, etc..." class="form-control" name="kilometer">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Foto del ine: </label>
+                                        <label class="form-label">Foto del Ine: </label>
                                         <input type="file" class="form-control" name="image_url">
                                     </div>
                                 </div>
-
-                                <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
-                                    <div class="form-group">
-                                    <label class="form-label">Foto de circulación: </label>
-                                    <input type="file" class="form-control" name="image_url_circulacion">
-                                </div>
                             </div>
 
                             <div class="row">
-                                <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12 col-xxl-12">
+                                <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Tarjeta de circulación: </label>
+                                        <input type="file" class="form-control" name="image_url_circulacion">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                     <div class="form-group">
                                         <label class="form-label">Foto personal: </label>
-                                        <input type="file" class="form-control" name="image_url_person">
+                                        <input type="file" class="form-control" name="image_url_circulacion">
                                     </div>
                                 </div>
                             </div>
+                            
 
                             <input type="submit" value="Registrar" class="btn btn-primary btn-block" name="save">
                         </form>
@@ -370,11 +374,10 @@
             </div>
             <br>
             <!-- End Modal -->
-
+            <br>
+        <?php include "./partials/footer.php" ?>
 
         </div>
-        <br>
-        <?php include "./partials/footer.php" ?>
 
     </div>
 

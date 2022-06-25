@@ -17,7 +17,6 @@
         $phone = $_POST['phone'];
         $nameEncargado = $_POST['name_encargado'];
         $adress = $_POST['adress'];
-        $nameAndPhone = $_POST['name_and_phone'];
         $references_coto = $_POST['references_coto'];
 
         //imagen
@@ -41,12 +40,12 @@
             echo "no es la extension";
         }
 
-        echo $query_save_order = "INSERT INTO orders(date_send, person_receive, colonia, cruce_calles, name_flower, phone, name_encargado, adress, from_id, to_id, status, id_user, name_and_phone, references_coto, image) VALUES('$dateSend', '$personReceive', '$colonia', '$cruceCalles', '$nameFlower', '$phone', '$nameEncargado', '$adress', '$uid', '1', '0', '$uid', '$nameAndPhone', '$references_coto', '$ruta')";
+        $query_save_order = "INSERT INTO orders(date_send, person_receive, colonia, cruce_calles, name_flower, phone, name_encargado, adress, from_id, to_id, status, id_user, references_coto, image, created_date) VALUES('$dateSend', '$personReceive', '$colonia', '$cruceCalles', '$nameFlower', '$phone', '$nameEncargado', '$adress', '$uid', '1', '0', '$uid', '$references_coto', '$ruta', NOW())";
         $result_save_order = mysqli_query($conexion, $query_save_order);
 
-        /*if($result_save_order) {
+        if($result_save_order) {
             echo "<script>window.location='new-orders.php?bien'; </script>";
-        }*/
+        }
     }
 ?>
 
@@ -156,14 +155,13 @@
                                                     <th>Folio</th>
                                                     <th>Fecha</th>
                                                     <th>Quién recibe</th>
+                                                    <th>Dirección</th>
                                                     <th>Colonia</th>
                                                     <th>Cruce entre calles</th>
+                                                    <th>Referencias del domicilio</th>
                                                     <th>Nombre de la florería</th>
-                                                    <th>Teléfono</th>
                                                     <th>Nombre del encargado</th>
-                                                    <th>Dirección</th>
-                                                    <th>Nombre y teléfono de quién envía</th>
-                                                    <th>Referencias de tu domicilio</th>
+                                                    <th>Teléfono</th>
                                                     <th>Imagen del ramo</th>
 
                                                     <?php if($typeUser === "Cliente") {?>
@@ -248,49 +246,42 @@
                             <div class="row">
                                 <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
                                     <div class="form-group">
-                                        <label>Nombre y Teléfono de quién envía: </label>
-                                        <input type="text" placeholder="Ejemplo: Fernando, etc..." class="form-control" name="name_and_phone">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4 mt-4">
-                                    <div class="form-group">
                                         <label>Dirección: </label>
                                         <input type="text" placeholder="Ejemplo: Avenida de los arcos #476, etc..." class="form-control" name="adress">
                                     </div>
                                 </div>
 
-                                <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4 mt-4">
+                                <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
                                     <div class="form-group">
                                         <label>Colonia y Municipio: </label>
                                         <input type="text" placeholder="Ejemplo: La moderna, etc..." class="form-control" name="colonia">
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
+                                <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
                                     <div class="form-group">
                                         <label>Cruce entre calles: </label>
                                         <input type="text" placeholder="Ejemplo: Es afuera del coto 4, a dos casas de la entrada, etc..." class="form-control" name="cruce_calles">
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
                                     <div class="form-group">
                                         <label>Nombre de la florería: </label>
                                         <input type="text" placeholder="Ejemplo: florería san jose, etc..." class="form-control" name="name_flower">
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
+                                <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
                                     <div class="form-group">
                                         <label>Encargado de la florería: </label>
                                         <input type="text" placeholder="Ejemplo: Adrian Hernandez, etc..." class="form-control" name="name_encargado">
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
+                                <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
                                     <div class="form-group">
                                         <label>Referencias de tu domicilio: </label>
                                         <input type="text" placeholder="Ejemplo: Esta cerca de un coto, enfrenta está un súper, etc..." class="form-control" name="references_coto">

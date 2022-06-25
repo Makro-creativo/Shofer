@@ -14,16 +14,16 @@
       <?php if($typeUser === "Administrador") {?>
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="DashboardAdmin.php">
           <div class="sidebar-brand-icon">
-            <img src="../img/logos_shofer1.png" style="width: 80px; height: 80px;">
+            <img src="assets/images/svg/material_separado_shofer-17.svg" style="width: 80px; height: 80px;">
           </div>
-          <div class="sidebar-brand-text mx-3">SHO-FER</div>
+          <div class="sidebar-brand-text mx-2">SHO-FER</div>
         </a>
       <?php }?>
 
       <?php if($typeUser === "Cliente") {?>
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="DashboardCliente.php">
           <div class="sidebar-brand-icon">
-          <img src="../img/logos_shofer1.png" style="width: 80px; height: 80px;">
+            <img src="assets/images/svg/material_separado_shofer-17.svg" style="width: 80px; height: 80px;">
           </div>
           <div class="sidebar-brand-text mx-3">SHO-FER</div>
         </a>
@@ -32,7 +32,7 @@
       <?php if($typeUser === "Chofer") {?>
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="DashboardChofer.php">
           <div class="sidebar-brand-icon">
-          <img src="../img/logos_shofer1.png" style="width: 80px; height: 80px;">
+            <img src="assets/images/svg/material_separado_shofer-17.svg" style="width: 80px; height: 80px;">
           </div>
           <div class="sidebar-brand-text mx-3">SHO-FER</div>
         </a>

@@ -78,12 +78,39 @@
                       </div>
                     </div>
                     <div class="col-auto">
-                      <i class="bi bi-info-circle-fill fa-2x text-primary"></i>
+                      <i class="bi bi-flower2 fa-2x text-primary"></i>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+
+            <!--<div class="col-xl-3 col-md-6 mb-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-uppercase mb-1">Servicios (Entregados)</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <?php 
+                          include "./config/conexion.php";
+
+                          $search_orders_delivery = "SELECT * FROM delivery_chofer INNER JOIN asign_orders_chofer ON delivery_chofer.id_order = asign_orders_chofer.id_order WHERE delivery_chofer.id_user = '$uid2'";
+                          $result_orders_delivery = mysqli_query($conexion, $search_orders_asignad);
+
+                          $count_order_delivery = mysqli_num_rows($result_orders_delivery);
+
+                          echo $count_order_delivery;
+                        ?>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="bi bi-flower2 fa-2x text-primary"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>-->
 
     
           </div>

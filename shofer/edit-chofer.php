@@ -12,7 +12,8 @@
         $adress = $_POST['adress'];
         $accountNumber = $_POST['account_number'];
         $price = $_POST['price'];
-        $kilometer = $_POST['kilometer'];
+        $accountNumber = $_POST['card_number'];
+        $bank = $_POST['bank'];
 
          //imagen
          $directorio = "assets/images/"; 
@@ -77,7 +78,7 @@
              echo "no es la extension";
          }
 
-        $query_update_chofer = "UPDATE choferes SET name='$name', phone='$phone', vehicle='$vehicle', plates='$plates', adress='$adress', account_number='$accountNumber', price='$price', kilometer='$kilometer', image_url='$ruta', image_url_circulacion='$ruta2', image_url_person='$ruta3' WHERE id_user = '$idChoferEdit'";
+        $query_update_chofer = "UPDATE choferes SET name='$name', phone='$phone', vehicle='$vehicle', plates='$plates', adress='$adress', account_number='$accountNumber', price='$price', card_number='$accountNumber', bank='$bank', image_url='$ruta', image_url_circulacion='$ruta2', image_url_person='$ruta3' WHERE id_user = '$idChoferEdit'";
         $result_update_chofer = mysqli_query($conexion, $query_update_chofer);
 
         if($result_update_chofer) {
@@ -154,7 +155,8 @@
                             $adress = $row['adress'];
                             $accountNumber = $row['account_number'];
                             $price = $row['price'];
-                            $kilometer = $row['kilometer'];
+                            $cardNumber = $row['card_number'];
+                            $bank = $row['bank'];
                         }
                     }
                 ?>
@@ -237,37 +239,44 @@
                                         <div class="row">
                                             <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
-                                                    <label>Precio: </label>
+                                                    <label>Número de tarjeta: </label>
+                                                    <input value="<?php echo $cardNumber; ?>" type="text" placeholder="Ejemplo: Avenida los arcos #478, etc..." class="form-control" name="card_number">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
+                                                <div class="form-group">
+                                                    <label>Banco: </label>
+                                                    <input value="<?php echo $bank; ?>" type="text" placeholder="Ejemplo: 4242424242424242, etc..." class="form-control" name="bank">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
+                                                <div class="form-group">
+                                                    <label>Precio por Kilometro: </label>
                                                     <input value="<?php echo $price; ?>" type="text" placeholder="Ejemplo: 12, etc..." class="form-control" name="price">
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
-                                                    <label>Kilometros: </label>
-                                                    <input value="<?php echo $kilometer;
-                                                     ?>" type="number" placeholder="Ejemplo: 10, etc..." class="form-control" name="kilometer">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
-                                                <div class="form-group">
-                                                    <label class="form-label">Foto del ine: </label>
+                                                    <label class="form-label">Foto del Ine: </label>
                                                     <input type="file" class="form-control" name="image_url">
                                                 </div>
                                             </div>
-
-                                            <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
-                                                <div class="form-group">
-                                                <label class="form-label">Foto de circulación: </label>
-                                                <input type="file" class="form-control" name="image_url_circulacion">
-                                            </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">Tarjeta de circulación: </label>
+                                                    <input type="file" class="form-control" name="image_url_circulacion">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Foto personal: </label>
                                                     <input type="file" class="form-control" name="image_url_person">

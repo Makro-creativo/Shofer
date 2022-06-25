@@ -117,6 +117,8 @@
                             $cruceCalles = $row['cruce_calles'];
                             $personReceive = $row['person_receive'];
                             $phone = $row['phone'];
+                            $adress = $row['adress'];
+                            $referencesCoto = $row['references_coto'];
                         }
                     }
                 ?>
@@ -152,28 +154,21 @@
                                         <div class="card-body">
                                             <div class="row mb-4">
                                                 <div class="col-6 col-md-6">
-                                                    <h6 class="mb-2">De:</h6>
+                                                    <h6 class="mb-2">De donde: <?php echo $nameFlower; ?></h6>
                                                     <div>
                                                         Folio: <strong><?php echo "00".$folio; ?></strong>
                                                     </div>
-                                                    <div>
-                                                        <strong><?php echo $nameFlower; ?></strong>
-                                                    </div>
+                                                    <div>Dirección: <?php echo $adress; ?></div>
                                                     <div>Colonia: <?php echo $colonia; ?></div>
                                                     <div>Cruce de calles: <?php echo $cruceCalles; ?></div>
-                                                    <div>Persona que recibe: <?php echo $personReceive; ?></div>
-                                                    <div>Teléfono: <?php echo "+52 ".$phone; ?></div>
+                                                    <div>Referencia de dirección: <?php echo $referencesCoto; ?></div>
                                                 </div>
 
                                                 <div class="col-6 col-md-6">
-                                                    <h6 class="mb-2">Para:</h6>
-                                                    <div>
-                                                        <strong>Fercho</strong>
-                                                    </div>
-                                                    <div>Correo electronico: fercho@floreria.com</div>
-                                                    <div>Dirección: Avenida de los arcos #789</div>
-                                                    <div>Empresa: CHOFER</div>
-                                                    <div>Teléfono: +48 123 456 789</div>
+                                                    <h6 class="mb-2">Quién recibe: <?php echo $personReceive; ?></h6>
+                                                    <div>Dirección: <?php echo $adress; ?></div>
+                                                    <div>Empresa: <?php echo $nameFlower; ?></div>
+                                                    <div>Número de teléfono: <?php echo "+52 ". $phone; ?></div>
                                                 </div>
 
                                             </div>

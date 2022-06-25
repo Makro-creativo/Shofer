@@ -159,7 +159,7 @@
                                                     <label>Estatus: </label>
                                                     <select name="status" require class="form-control">
                                                         <option selected disabled>Selecciona una opción</option>
-                                                        <option value="Activo" <?php if($status == "Activo"){?> selected <?php } ?>>Actico</option>
+                                                        <option value="Activo" <?php if($status == "Activo"){?> selected <?php } ?>>Activo</option>
                                                         <option value="Inactivo" <?php if($status == "Inactivo"){?> selected <?php } ?>>Inactivo</option>
                                                         <option value="Suspendido" <?php if($status == "Suspendido"){?> selected <?php } ?>>Suspendido</option>
                                                     </select>

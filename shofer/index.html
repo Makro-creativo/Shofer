@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/images/favicon_shofer.svg" type="image/x-icon">
+    <title>SHO-FER - Home</title>
+    <link rel="manifest" href="manifest.json">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Fira+Sans:ital,wght@0,200;0,400;1,700&family=Poppins:ital,wght@0,400;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <link href="./assets/css/style.css" rel="stylesheet">
+    <!-- Soporte para iOS -->
+    <link rel="apple-touch-icon" href="./assets/images/icons/iconos_la_esperaza-72.png" />
+    <link rel="apple-touch-icon" href="./assets/images/icons/iconos_la_esperanza-128.png" />
+    <link rel="apple-touch-icon" href="./assets/images/icons/iconos_la_esperanza-144.png" />
+    <link rel="apple-touch-icon" href="./assets/images/icons/iconos_la_esperanza-152.png" />
+    <link rel="apple-touch-icon" href="./assets/images/icons/iconos_la_esperanza-192.png" />
+    <link rel="apple-touch-icon" href="./assets/images/icons/iconos_la_esperanza-384.png" />
+    <link rel="apple-touch-icon" href="./assets/images/icons/iconos_la_esperanza_512.png" />
+    <meta name="apple-mobile-web-app-status-bar" content="#1c1c1d" />
+    <meta name="theme-color" content="#8d8d8b" />
+    <style>
+        @import url('../shofer/assets/css/typographic/LATO-BLACK.TTF');
+        /* Styles for hero image */
+        .hero-image {
+            background-image: url("../shofer/assets/images/svg/material_separado_shofer-01.svg");
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 100%;
+            min-height: 73vh;
+        }
+
+        .hero-flower {
+            background-image: url("../shofer/assets/images/svg/material_separado_shofer-04.svg");
+            background-position: right !important;
+            background-repeat: no-repeat;
+            width: 100%;
+            min-height: 70vh;
+        }
+
+        .hero-article-two {
+            background-image: url("../shofer/assets/images/svg/material_separado_shofer-02.svg");
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 100%;
+            min-height: 90vh;
+        }
+
+        .hero-article-three {
+            background-image: url("../shofer/assets/images/svg/material_separado_shofer-03.svg");
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 100%;
+            min-height: 90vh;
+        }
+
+        .text-red {
+            color: #b61818 !important;
+        }
+
+        hr {
+            height: 5px !important;
+            width: 70%;
+            background-color:#b61818;
+        }
+
+        .text-lato {
+            font-size: 180px !important;
+            color: #b61818;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .form-control {
+            background-color:#5c646b !important;
+            border-radius: 10px !important;
+        }
+
+        .btn-change-color {
+            border-radius: 10px !important;
+        }
+
+        .navbar-toggler {
+            background-color: #5c646b;
+        }
+
+        .bi-list {
+            font-size: 30px !important;
+        }
+
+        .shadow-red {
+            background-color: #b61818;
+            padding: 10px;
+            border-radius: 15px;
+            width: 100px;
+            height: 100px;
+        }
+
+        .mr-7 {
+            margin-right: 1rem !important;
+        }
+
+        .py-7 {
+            padding-top: 10rem !important;
+            padding-bottom: 10rem !important;
+        }
+
+        .navbar .navbar-nav .nav-link:hover {
+            background-color: #b61818;
+            color: #fff !important;
+        }  
+
+        .navbar .navbar-nav .nav-link {
+            padding: 0.6em;
+            font-size: 1.2em;
+            transition: all 0.5s;
+        }
+
+        .navbar .navbar-brand {
+            padding: 0 0.6em;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        @media only screen and (min-width: 992px) {
+            .navbar {
+                padding: 0;
+            }
+            .navbar .navbar-nav .nav-link {
+                padding: 1em 0.7em;
+            }
+            .navbar .navbar-brand {
+                padding: 0 0.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <!-- Navbar Start -->
+    <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0 px-lg-5 border-bottom shadow p-4">
+            <a href="index.html" class="navbar-brand ml-lg-3">
+                <img src="assets/images/logo-shofer.jpeg" alt="logo" class="img-fluid" width="120" height="120">
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <i class="bi bi-list text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
+                <div class="navbar-nav m-auto py-0">
+                    <a href="index.html" class="nav-item nav-link text-uppercase text-dark fw-bold">Inicio</a>
+                    <a href="#services" class="nav-item nav-link text-uppercase text-dark fw-bold">Servicios</a>
+                    <a href="#contact" class="nav-item nav-link text-uppercase text-dark fw-bold">Contacto</a>
+                </div>
+                <a href="login.php" class="btn btn-danger py-2 px-4 d-none d-lg-block fw-bold">Iniciar sesión</a>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!--<nav class="navbar navbar-expand-sm navbar-dark bg-white main-nav border-bottom shadow">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="bi bi-list"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="container d-flex justify-content-center">
+                    <ul class="nav navbar-nav w-100 flex-nowrap">
+                        <li class="nav-item active">
+                            <a class="nav-link text-dark text-uppercase fw-bold" href="#">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-uppercase fw-bold text-dark" href="#">Servicios</a>
+                        </li>
+                    </ul>
+
+                    <ul class="navbar-nav justify-content-center">
+                        <li class="nav-item"><a class="nav-link text-uppercase" href="#"><img src="assets/images/logo-shofer.jpeg" alt="logo" class="img-fluid" style="width: 280px;"></a></li>
+                    </ul>
+
+                    <ul class="navbar-nav w-100 d-flex justify-content-end">
+                        <li class="nav-item">
+                            <a class="nav-link text-uppercase fw-bold text-dark" href="#">Contacto</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-danger rounded text-uppercase fw-bold button-system" href="login.php">Iniciar sesión</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>-->
+    <!-- End Navbar -->
+    
+    <!-- Main Hero Image -->
+        <div class="hero-image">
+            <br><br><br><br><br>
+           <!--<h1 class="text-uppercase main-text p-7 text-left fw-bold p-4">Expertos <br> en el <br></h1><span class="color-red fw-bold text-uppercase">transporte</span>-->
+           <div class="d-flex justify-content-start m-0">
+            <img src="../shofer/assets/images/texto1.png" alt="texto principal" class="img-fluid">
+           </div>
+            <br><br>
+            <div class="mr-4">
+                <a href="login.php" class="btn btn-danger btn-lg button-contact">Ingresar</a>
+            </div>
+        </div>
+    <!-- End Main Hero Image -->
+
+    <!-- Section second -->
+        <div class="section">
+            <img src="../shofer/assets/images/svg/material_separado_shofer-05.svg" alt="title" class="img-fluid" style="width: 800px; margin-top: 2rem !important;">
+
+            <div class="hero-flower">
+                <div class="container">
+                    <div class="col-lg-6 mt-4">
+                        <h2 class="display-4 text-xl-center text-center text-secondary">Nos especializamos en el <span class="text-red fw-bold">transporte de arreglos florales</span> para eventos tanto pequelos como grandes</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- End Section seconda -->
+
+    <!-- Article -->
+        <article class="article" id="services">
+            <div class="d-flex justify-content-end m-0">
+                <img src="../shofer/assets/images/svg/material_separado_shofer-06.svg" alt="servicios" class="img-fluid" style="width: 800px !important; margin-top: 5rem !important;">
+            </div>
+
+            <div style="padding-top: 10rem !important; padding-bottom: 10rem !important;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
+                            <img src="../shofer/assets/images/svg/material_separado_shofer-07.svg" alt="ramo uno" class="img-fluid">
+                            <div>
+                                <p class="text-center mt-4 display-6 text-secondary">
+                                    Transporte de <br><span class="text-red fw-bold">Ramos personales</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
+                            <img src="../shofer/assets/images/svg/material_separado_shofer-08.svg" alt="ramo dos" class="img-fluid">
+                            <div>
+                                <p class="text-center mt-4 display-6 text-secondary">
+                                    Transporte de <br><span class="text-red fw-bold">Arreglos Florales</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
+                            <img src="../shofer/assets/images/svg/material_separado_shofer-09.svg" alt="ramo tres" class="img-fluid"> 
+                            <div>
+                                <p class="text-center mt-4 display-6 text-secondary">
+                                    Transporte de <br><span class="text-red fw-bold">Adornos para eventos</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </article>
+    <!-- End Article -->
+    <br><br>
+
+    <!-- Second article -->
+        <div class="hero-article-two">
+            <h2 class="text-center text-secondary display-4 fw-bold">
+                Nos aseguramos
+            </h2>
+            <h2 class="text-center text-secondary display-4">
+                de que tu arreglo floral llegue
+            </h2>
+
+            <hr class="mx-auto">
+
+            <h1 class="text-center text-lato fw-bold">Sano y salvo</h1>
+        </div>
+    <!-- End Second article -->
+
+    <!-- Three article -->
+        <article class="hero-article-three" id="contact">
+            <div class="d-flex justify-content-start m-0">
+                <img src="../shofer/assets/images/svg/material_separado_shofer-10.svg" alt="hero three" class="img-fluid" style="width: 800px !important; margin-top: 5rem !important;">
+            </div>
+
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
+                        <div class="mt-4" style="max-width: 540px;">
+                            <div class="row g-0">
+                              <div class="col-md-4">
+                                <img src="../shofer/assets/images/svg/material_separado_shofer-11.svg" class="img-fluid rounded-start" alt="phone">
+                              </div>
+                              <div class="col-md-8">
+                                <div class="card-body">
+                                  <h5 class="card-title display-4 fw-bold text-red text-uppercase">Teléfono</h5>
+                                  <p class="card-text ml-4 text-secondary" style="font-size: 25px !important; margin-left: 10px !important;">33 3333 3333</p>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4" style="max-width: 540px;">
+                            <div class="row g-0">
+                              <div class="col-md-4">
+                                <img src="../shofer/assets/images/svg/material_separado_shofer-12.svg" class="img-fluid rounded-start" alt="phone">
+                              </div>
+                              <div class="col-md-8">
+                                <div class="card-body">
+                                  <h5 class="card-title display-4 fw-bold text-red text-uppercase">Dirección</h5>
+                                  <p class="card-text ml-4 text-secondary" style="font-size: 25px !important; margin-left: 10px !important;">Av. 14 Becal Cancún</p>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4" style="max-width: 540px;">
+                            <div class="row g-0">
+                              <div class="col-md-4">
+                                <img src="../shofer/assets/images/svg/material_separado_shofer-13.svg" class="img-fluid rounded-start" alt="phone">
+                              </div>
+                              <div class="col-md-8">
+                                <div class="card-body">
+                                  <h5 class="card-title display-4 fw-bold text-red text-uppercase">Correo</h5>
+                                  <p class="card-text ml-4 text-secondary" style="font-size: 25px !important; margin-left: 10px !important;">administracion@mishofer.com</p>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6 mt-4">
+                        <div class="form-group">
+                            <label class="text-red fw-bold" style="font-size: 30px;">Nombre</label>
+                            <input type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group mt-4">
+                            <label class="text-red fw-bold" style="font-size: 30px;">Email</label>
+                            <input type="email" class="form-control">
+                        </div>
+
+                        <div class="form-group mt-4">
+                            <label class="text-red fw-bold" style="font-size: 30px;">Teléfono</label>
+                            <input type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group mt-4">
+                            <label class="text-red fw-bold" style="font-size: 30px;">Mensaje</label>
+                            <textarea rows="3" class="form-control"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-secondary mt-4 btn-change-color">Envíar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container p-5">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <ul class="list-unstyled">
+                            <li class="list-inline-item mr-7">
+                                <span class="d-flex align-items-center">
+                                    <div class="shadow-red">
+                                        <i class="bi bi-instagram text-white d-flex justify-content-center align-items-center mr-2" style="font-size: 80px;"></i>
+                                    </div>
+                                </span>
+                            </li>
+    
+                            <li class="list-inline-item mr-7">
+                                <span class="d-flex align-items-center">
+                                    <div class="shadow-red">
+                                        <i class="bi bi-facebook text-white d-flex justify-content-center align-items-center mr-2" style="font-size: 80px;"></i>
+                                    </div>
+                                </span>
+                            </li>
+
+                            <li class="list-inline-item mr-7">
+                                <span class="d-flex align-items-center">
+                                    <div class="shadow-red">
+                                        <i class="bi bi-whatsapp text-white d-flex justify-content-center align-items-center mr-2" style="font-size: 80px;"></i>
+                                    </div>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </article>
+    <!-- End three article -->
+
+    <!-- Mapa -->
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3720.776796561066!2d-86.85336278457673!3d21.16127918592673!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f4c2c77eb7992f5%3A0x701f1e10af6a5113!2sBecal%2014%2C%2059%2C%2077515%20Canc%C3%BAn%2C%20Q.R.!5e0!3m2!1ses-419!2smx!4v1656021619842!5m2!1ses-419!2smx" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <!-- End Mapa -->
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="./serviceWorker.js"></script>
+    <script src="./app.js"></script>
+</body>
+</html>

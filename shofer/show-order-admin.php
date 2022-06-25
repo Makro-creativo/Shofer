@@ -27,9 +27,12 @@
         <td><?php echo "00".$row['id_order']; ?></td>
         <td><?php echo date("m/d/Y", strtotime($row['date_send'])); ?></td>
         <td><?php echo $row['person_receive']; ?></td>
+        <td><?php echo $row['adress']; ?></td>
         <td><?php echo $row['colonia']; ?></td>
         <td><?php echo $row['cruce_calles']; ?></td>
+        <td><?php echo $row['references_coto']; ?></td>
         <td><?php echo $row['name_flower']; ?></td>
+        <td><?php echo $row['name_encargado']; ?></td>
         <td>
             <?php
                 $telephone = $row['phone']; 
@@ -38,10 +41,6 @@
                 echo $format;
             ?>
         </td>
-        <td><?php echo $row['name_encargado']; ?></td>
-        <td><?php echo $row['adress']; ?></td>
-        <td><?php echo $row['name_and_phone']; ?></td>
-        <td><?php echo $row['references_coto']; ?></td>
         <td><img src="<?php echo $row['image']; ?>" alt="" class="img-fluid"></td>
         
         <?php if($typeUser === "Cliente") {?>
