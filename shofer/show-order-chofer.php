@@ -114,6 +114,10 @@
                                                         <th>Marcar como entregado</th>
                                                     <?php }?>
 
+                                                    <?php if($typeUser === "Chofer") {?>
+                                                        <th>Kilometros</th>
+                                                    <?php }?>
+
                                                     <?php if($typeUser === "Administrador") {?>
                                                         <th>Asignar servicio</th>
                                                     <?php }?>
@@ -207,6 +211,24 @@
                                                             <?php }?>
                                                         </td>
                                                     <?php }?>
+
+                                                    <td>
+                                                    <?php if($typeUser === "Chofer") {?>
+                                                                <?php 
+                                                                    $print_kilometers = "SELECT * FROM orders INNER JOIN asign_kilometer_order ON orders.id_order = asign_kilometer_order.id_order WHERE orders.id_order = '$idOrder'";
+                                                                    $result_print = mysqli_query($conexion, $print_kilometers);
+
+                                                                    $kilometer = mysqli_fetch_array($result_print);
+                                                                    
+                                                            
+                                                                    if(!$kilometer) {
+                                                                        echo "Aún no hay kilometros asignados";
+                                                                    } else {
+                                                                        echo $kilometer['kilometer']." Kilometros";
+                                                                    }
+                                                                ?>
+                                                        <?php }?>
+                                                    </td>
                                                 </tr>
                                                 <?php }?>
                                             </tbody>

@@ -114,5 +114,34 @@
                 <?php }?>
             </td>
         <?php }?>
+
+        <?php if($typeUser === "Administrador") {?>
+            <td>
+                <?php 
+                    $print_kilometers = "SELECT * FROM orders INNER JOIN asign_kilometer_order ON orders.id_order = asign_kilometer_order.id_order WHERE orders.id_order = '$idOrder'";
+                    $result_print = mysqli_query($conexion, $print_kilometers);
+
+                    $kilometer = mysqli_fetch_array($result_print);
+
+                    $numberKilometer = mysqli_num_rows($result_print);
+
+                    if($numberKilometer === 0) {
+                ?>
+
+                <form action="asign-kilometer.php" method="POST">
+                    <input type="hidden" name="id_order_kilometer" value="<?php echo $row['id_order']; ?>">
+
+                    <input type="number" name="kilometer" class="form-control" value="0">
+
+                    <input type="submit" value="Guardar" class="btn btn-secondary btn-sm" name="saveKilometer">
+                </form>
+
+                <?php } else { ?>
+                    <span class="badge badge-secondary"><?php echo $kilometer['kilometer']; ?> kilometros
+                        <i class="bi bi-geo-alt-fill"></i>
+                    </span>
+                <?php }?>
+            </td>
+        <?php }?>   
     </tr>
 <?php }?>

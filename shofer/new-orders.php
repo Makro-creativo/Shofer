@@ -109,6 +109,22 @@
             </script>
         <?php } ?>
 
+        <?php   
+            if(isset($_GET['exito'])){
+        ?>
+            <script>
+                Swal.fire({
+                    title: 'Listo',
+                    text: 'Se asignaron los kilometros exitosamente!',
+                    icon: 'success',
+                        confirmButtonText: 'Ok'
+                    })
+                    .then(function() {
+                        window.location = "new-orders.php";
+                });
+            </script>
+        <?php } ?>
+
         <?php include "./partials/menuLeft.php" ?>
         
         <div id="content-wrapper" class="d-flex flex-column">
@@ -183,6 +199,10 @@
 
                                                     <?php if($typeUser === "Administrador") {?>
                                                         <th>Asignar servicio</th>
+                                                    <?php }?>
+
+                                                    <?php if($typeUser === "Administrador") {?>
+                                                        <th>Kilometros</th>
                                                     <?php }?>
                                                 </tr>
                                             </thead>
