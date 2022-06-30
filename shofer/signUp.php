@@ -75,7 +75,7 @@
     <!-- Navbar of sign up -->  
         <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom shadow-lg">
             <div class="container">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="index.html">
                     <img src="assets/images/rojo/shofer_rojo_512.png" alt="logo" class="img-fluid" width="100" height="100">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
