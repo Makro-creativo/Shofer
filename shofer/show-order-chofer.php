@@ -124,7 +124,7 @@
                                                     <?php 
                                                         include "./config/conexion.php";
 
-                                                        $search_all_orders = "SELECT * FROM orders INNER JOIN asign_orders_chofer ON orders.id_order = asign_orders_chofer.id_order INNER JOIN choferes ON asign_orders_chofer.id_user = choferes.id_user WHERE asign_orders_chofer.id_user = '$uid2'";
+                                                        $search_all_orders = "SELECT * FROM orders INNER JOIN asign_orders_chofer ON orders.id_order = asign_orders_chofer.id_order INNER JOIN users ON asign_orders_chofer.id_user = users.id WHERE asign_orders_chofer.id_user = '$uid'";
                                                         $result_all_orders = mysqli_query($conexion, $search_all_orders);
 
                                                         while($row = mysqli_fetch_array($result_all_orders)) {

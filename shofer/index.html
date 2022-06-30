@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Fira+Sans:ital,wght@0,200;0,400;1,700&family=Poppins:ital,wght@0,400;0,700;0,800;1,400&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="./assets/css/style.css" rel="stylesheet">
     <!-- Soporte para iOS -->
     <link rel="apple-touch-icon" href="./assets/images/icons/iconos_la_esperaza-72.png" />
@@ -141,6 +142,13 @@
                 padding: 0 0.8em;
             }
         }
+
+        .button-signup {
+            border-radius: 15px !important;
+            background-color: #8d8d8b !important;
+            border-color: #8d8d8b !important;
+            box-shadow: none !important;
+        }
     </style>
 </head>
 <body>
@@ -165,42 +173,6 @@
         </nav>
     </div>
     <!-- Navbar End -->
-
-
-    <!--<nav class="navbar navbar-expand-sm navbar-dark bg-white main-nav border-bottom shadow">
-        <div class="container">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="bi bi-list"></i>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <div class="container d-flex justify-content-center">
-                    <ul class="nav navbar-nav w-100 flex-nowrap">
-                        <li class="nav-item active">
-                            <a class="nav-link text-dark text-uppercase fw-bold" href="#">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-uppercase fw-bold text-dark" href="#">Servicios</a>
-                        </li>
-                    </ul>
-
-                    <ul class="navbar-nav justify-content-center">
-                        <li class="nav-item"><a class="nav-link text-uppercase" href="#"><img src="assets/images/logo-shofer.jpeg" alt="logo" class="img-fluid" style="width: 280px;"></a></li>
-                    </ul>
-
-                    <ul class="navbar-nav w-100 d-flex justify-content-end">
-                        <li class="nav-item">
-                            <a class="nav-link text-uppercase fw-bold text-dark" href="#">Contacto</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn btn-danger rounded text-uppercase fw-bold button-system" href="login.php">Iniciar sesión</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>-->
-    <!-- End Navbar -->
     
     <!-- Main Hero Image -->
         <div class="hero-image">
@@ -211,10 +183,37 @@
            </div>
             <br><br>
             <div class="mr-4">
-                <a href="login.php" class="btn btn-danger btn-lg button-contact">Ingresar</a>
+                <button class="btn btn-danger btn-lg button-signup" data-bs-toggle="modal" data-bs-target="#signup">
+                    Regístrate
+                </button>
             </div>
         </div>
     <!-- End Main Hero Image -->
+
+    <!-- Start modal for sign up -->
+        <div class="modal fade" id="signup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Regístrate</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <h2 class="display-5 text-dark">Regístrate para conducir y hacer entregas con Shofer <i class="fa-solid fa-car-side"></i></h2>
+                            <a href="signUp.php" class="btn btn-dark">
+                                Crear cuenta
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- End modal for sign up -->
 
     <!-- Section second -->
         <div class="section">

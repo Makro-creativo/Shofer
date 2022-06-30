@@ -6,7 +6,7 @@
   }
 
   $uid = $_SESSION['UID'];
-  $uid2 = $_SESSION['UID2'];
+  //$uid2 = $_SESSION['UID2'];
 ?>
 
 
@@ -68,7 +68,7 @@
                         <?php 
                           include "./config/conexion.php";
 
-                          $search_orders_asignad = "SELECT * FROM orders INNER JOIN asign_orders_chofer ON orders.id_order = asign_orders_chofer.id_order INNER JOIN choferes ON asign_orders_chofer.id_user = choferes.id_user WHERE asign_orders_chofer.id_user = '$uid2'";
+                          $search_orders_asignad = "SELECT * FROM orders INNER JOIN asign_orders_chofer ON orders.id_order = asign_orders_chofer.id_order INNER JOIN users ON users.id = asign_orders_chofer.id_user WHERE asign_orders_chofer.id_user = '$uid'";
                           $result_orders_asignad = mysqli_query($conexion, $search_orders_asignad);
 
                           $count_order_asignad = mysqli_num_rows($result_orders_asignad);

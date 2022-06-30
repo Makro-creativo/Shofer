@@ -94,11 +94,11 @@
                         <?php 
                             include "./config/conexion.php";
 
-                            $search_choferes = "SELECT * FROM choferes ORDER BY name ASC";
+                            $search_choferes = "SELECT * FROM users WHERE type = 'Chofer' ORDER BY name ASC";
                             $result_choferes = mysqli_query($conexion, $search_choferes);
 
                             while($rowChoferes = mysqli_fetch_array($result_choferes)) {
-                                $idChofer = $rowChoferes['id_user'];
+                                $idChofer = $rowChoferes['id'];
                                 $nameChofer = $rowChoferes['name'];
                         ?>
                             <option value="<?php echo $idChofer; ?>"><?php echo $nameChofer; ?></option>

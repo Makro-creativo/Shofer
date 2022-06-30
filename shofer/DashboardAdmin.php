@@ -110,7 +110,7 @@
                         <?php 
                           include "./config/conexion.php";
 
-                          $search_data_choferes = "SELECT * FROM choferes";
+                          $search_data_choferes = "SELECT * FROM drivers";
                           $result_data_choferes = mysqli_query($conexion, $search_data_choferes);
 
                           $count_choferes = mysqli_num_rows($result_data_choferes);

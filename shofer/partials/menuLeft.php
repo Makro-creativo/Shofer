@@ -164,14 +164,28 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#inbox"
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#drivers"
             aria-expanded="true" aria-controls="collapseBootstrap">
             <i class="bi bi-inbox-fill"></i>
             <span>Inbox</span>
           </a>
-          <div id="inbox" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
+          <div id="drivers" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
               <a class="collapse-item" href="new-inbox.php">Inbox</a>
+            </div>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#inbox"
+            aria-expanded="true" aria-controls="collapseBootstrap">
+            <i class="bi bi-clipboard-data-fill"></i>
+            <span>Mis datos</span>
+          </a>
+          <div id="inbox" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <a class="collapse-item" href="new-data-driver.php">Registrar mis datos</a>
+              <a class="collapse-item" href="show-data-driver.php">Mis datos</a>
             </div>
           </div>
         </li>

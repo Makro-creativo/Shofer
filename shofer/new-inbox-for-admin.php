@@ -5,7 +5,7 @@
         session_start();
     }
 
-    $uid2 = $_SESSION['UID2'];
+    $uid = $_SESSION['UID'];
 
     if(isset($_POST['inboxAdmin'])) {
         $idUser = $_POST['id_chofer_uid'];
@@ -32,7 +32,13 @@
             echo "no es la extension";
         }
 
-        $query_inbox_admin = "INSERT INTO inbox_admin(id_user, asunto, description, image_url, from_id, to_id, status, created_at) VALUES('$idUser', '$asunto', '$description', '$ruta', '$uid2', '1', 0, NOW())";
+        $search_name_user = "SELECT name FROM users WHERE id = '$uid'";
+        $result_name_user = mysqli_query($conexion, $search_name_user);
+
+        $rowName = mysqli_fetch_array($result_name_user);
+        $nameUser = $rowName['name'];
+
+        $query_inbox_admin = "INSERT INTO inbox_admin(id_user, asunto, description, image_url, from_id, to_id, status, created_at, name_user) VALUES('$idUser', '$asunto', '$description', '$ruta', '$uid', '1', 0, NOW(), '$nameUser')";
         $result_inbox_admin = mysqli_query($conexion, $query_inbox_admin);
 
         if($result_inbox_admin) {

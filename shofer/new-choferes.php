@@ -154,11 +154,6 @@
                             <div class="card shadow-lg">
                                 <div class="card-header d-flex justify-content-between align-items-center">
                                     <h6 class="m-0 text-primary">Choferes</h6>
-
-                                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#choferes">
-                                        <i class="bi bi-plus-circle"></i>
-                                        Nuevo chofer
-                                    </button>
                                 </div>
 
                                 <div class="card-body">
@@ -166,81 +161,46 @@
                                         <table class="table align-items-center table-flush table-hover" id="dataTable">
                                             <thead>
                                                 <tr>
-                                                    <th>Id del chofer</th>
+                                                    <th>ID</th>
                                                     <th>Nombre</th>
-                                                    <th>Teléfono</th>
-                                                    <th>Vehiculo</th>
+                                                    <th>Vehículo</th>
                                                     <th>Placas</th>
                                                     <th>Dirección</th>
                                                     <th>Número de cuenta</th>
-                                                    <th>Número de tarjeta</th>
-                                                    <th>Banco</th>
-                                                    <th>Precio por Kilometro</th>
-                                                    <th>Foto de Ine</th>
-                                                    <th>Tarejta de circulación</th>
+                                                    <th>Número de tarjeta de crédito</th>
+                                                    <th>Nombre del banco</th>
+                                                    <th>Precio por kilometro</th>
+                                                    <th>Foto Ine</th>
+                                                    <th>Tarjeta de circulación</th>
                                                     <th>Foto personal</th>
 
-                                                    <?php if($typeUser === "Administrador") {?>
-                                                        <th>Editar</th>
-                                                    <?php }?>
-
-                                                    <?php if($typeUser === "Administrador") {?>
-                                                        <th>Eliminar</th>
-                                                    <?php }?>
+                                                   
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php 
                                                     include "./config/conexion.php";
 
-                                                    $search_data_chofer = "SELECT * FROM choferes ORDER BY name ASC";
+                                                    $search_data_chofer = "SELECT * FROM drivers ORDER BY name_driver ASC";
                                                     $result_data_chofer = mysqli_query($conexion, $search_data_chofer);
 
                                                     while($row = mysqli_fetch_array($result_data_chofer)) {
                                                 ?>
                                                 <tr>
-                                                    <td><?php echo $row['id_user']; ?></td>
-                                                    <td><?php echo $row['name']; ?></td>
-                                                    <td>
-                                                        <?php 
-                                                            $telephone = $row['phone']; 
-                                                            $format = "(".substr($telephone,0,3).")"." ".substr($telephone,5,3)."-".substr($telephone,6,4);
-
-                                                            echo $format;
-                                                        ?>
-                                                    </td>
+                                                    <td><?php echo $row['id']; ?></td>
+                                                    <td><?php echo $row['name_driver']; ?></td>
                                                     <td><?php echo $row['vehicle']; ?></td>
                                                     <td><?php echo $row['plates']; ?></td>
                                                     <td><?php echo $row['adress']; ?></td>
                                                     <td><?php echo $row['account_number']; ?></td>
                                                     <td><?php echo $row['card_number']; ?></td>
                                                     <td><?php echo $row['bank']; ?></td>
-                                                    <td><?php echo number_format($row['price'], 2); ?></td>
-                                                    <td>
-                                                        <img src="<?php echo $row['image_url']; ?>" alt="" class="img-fluid">
-                                                    </td>
-                                                    <td>
-                                                        <img src="<?php echo $row['image_url_circulacion']; ?>" alt="" class="img-fluid">
-                                                    </td>
-                                                    <td>
-                                                        <img src="<?php echo $row['image_url_person']; ?>" alt="" class="img-fluid">
-                                                    </td>
+                                                    <td><?php echo number_format($row['price_for_kilometer'], 2)." Pesos"; ?></td>
+                                                    <td><img src="<?php echo $row['image_ine']; ?>" alt="" class="img-fluid"></td>
+                                                    <td><img src="<?php echo $row['image_circulacion']; ?>" alt="" class="img-fluid"></td>
+                                                    <td><img src="<?php echo $row['image_personal']; ?>" alt="" class="img-fluid"></td>
 
-                                                    <?php if($typeUser === "Administrador") {?>
-                                                        <td>
-                                                            <a href="edit-chofer.php?id_user=<?php echo $row['id_user']; ?>" class="btn btn-success">
-                                                                <i class="bi bi-pencil-square"></i>
-                                                            </a>
-                                                        </td>
-                                                    <?php }?>
-
-                                                    <?php if($typeUser === "Administrador") {?>
-                                                        <td>
-                                                            <a href="delete-chofer.php?id_user=<?php echo $row['id_user']; ?>" class="btn btn-danger">
-                                                                <i class="bi bi-trash"></i>
-                                                            </a>
-                                                        </td>
-                                                    <?php }?>
+                                                    
                                                 </tr>
                                                 <?php }?>
                                             </tbody>

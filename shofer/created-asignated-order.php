@@ -13,13 +13,13 @@
         // Data of asign orders to choferes
         $idOrder = $_POST['id_order'];
 
-        $search_choferes = "SELECT id_user, name FROM users WHERE id_user = '$idChofer'";
+        $search_choferes = "SELECT id, name FROM users WHERE id = '$idChofer'";
         $result_choferes = mysqli_query($conexion, $search_choferes);
         $rowChofer = mysqli_fetch_array($result_choferes);
-        $idUserChofer = $rowChofer['id_user'];
+        $idUserChofer = $rowChofer['id'];
         $nameChofer = $rowChofer['name'];
             
-        $query_save_asign_order = "INSERT INTO asign_orders_chofer(id_user, id_order, from_id, to_id, status, name_chofer, created_at) VALUES('$idChofer', '$idOrder', '$uid', '$idUserChofer', '0', '$nameChofer', NOW())";
+        $query_save_asign_order = "INSERT INTO asign_orders_chofer(id_user, id_order, from_id, to_id, status, name_chofer, created_at) VALUES('$idUserChofer   ', '$idOrder', '$uid', '$idUserChofer', '0', '$nameChofer', NOW())";
         $result_save_asign_order = mysqli_query($conexion, $query_save_asign_order);
 
         if($result_save_asign_order) {

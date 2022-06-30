@@ -36,12 +36,12 @@
             echo "no es la extension";
         }
 
-        $query_save_inbox = "INSERT INTO inbox(id_user, asunto, description, image, from_id, to_id, status, created_At) VALUES('$idChoferAdd', '$asunto', '$description', '$ruta', '$uid', '$uid2', '0', NOW())";
-        $result_save_inbox = mysqli_query($conexion, $query_save_inbox);
+        echo $query_save_inbox = "INSERT INTO inbox(id_user, asunto, description, image, from_id, to_id, status, created_At) VALUES('$idChoferAdd', '$asunto', '$description', '$ruta', '$uid', '$uid2', '0', NOW())";
+        //$result_save_inbox = mysqli_query($conexion, $query_save_inbox);
 
-        if($result_save_inbox) {
+        /*if($result_save_inbox) {
             echo "<script>window.location='new-inbox.php?bien'; </script>";
-        }
+        }*/
     }
 ?>
 
@@ -53,6 +53,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SHO-FER - inbox</title>
+    <link rel="shortcut icon" href="assets/images/favicon_shofer.svg" type="image/x-icon">
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="../css/ruang-admin.min.css" rel="stylesheet">
@@ -167,7 +168,7 @@
                                                 <?php 
                                                     include "./config/conexion.php";
 
-                                                    $total_inbox_chofer = "SELECT * FROM users INNER JOIN inbox ON users.id_user = inbox.id_user WHERE type = 'Chofer' AND inbox.id_user = '$uid2'";
+                                                    $total_inbox_chofer = "SELECT * FROM users INNER JOIN inbox ON users.id = inbox.id_user WHERE type = 'Chofer' AND inbox.id_user = '$uid'";
                                                     $result_total_inbox = mysqli_query($conexion, $total_inbox_chofer);
 
                                                     $count_inbox_chofer = mysqli_num_rows($result_total_inbox);
@@ -191,8 +192,8 @@
                                         <div class="list-group">
                                             <?php 
                                                 include "./config/conexion.php";
-
-                                                $search_info_inbox_admin = "SELECT * FROM inbox_admin INNER JOIN choferes ON inbox_admin.id_user = choferes.id_user ORDER BY created_at DESC";
+                        
+                                                $search_info_inbox_admin = "SELECT * FROM inbox_admin ORDER BY created_at DESC";
                                                 $result_info_inbox = mysqli_query($conexion, $search_info_inbox_admin);
 
                                                 while($rowInboxAdmin = mysqli_fetch_array($result_info_inbox)) {
@@ -202,7 +203,7 @@
                                                 <h5 class="mb-1"><?php echo $rowInboxAdmin['asunto']; ?></h5>
                                                 <small><?php echo date("m/d/Y h:i A",strtotime($rowInboxAdmin['created_at'])); ?></small>
                                                 </div>
-                                                <small>De: <?php echo $rowInboxAdmin['name']; ?></small>
+                                                <small>De: <?php echo $rowInboxAdmin['name_user']; ?></small>
                                             </a>
                                             <?php }?>
                                         </div>
@@ -222,7 +223,7 @@
                                             <?php  
                                                 include "./config/conexion.php";
 
-                                                $search_all_inbox_chofer = "SELECT * FROM users INNER JOIN inbox ON users.id_user = inbox.id_user WHERE inbox.id_user = '$uid2' AND type = 'Chofer'";
+                                                $search_all_inbox_chofer = "SELECT * FROM users INNER JOIN inbox ON users.id = inbox.id_user WHERE inbox.id_user = '$uid' AND type = 'Chofer'";
                                                 $result_all_inbox_chofer = mysqli_query($conexion, $search_all_inbox_chofer);
 
                                                 while($row = mysqli_fetch_array($result_all_inbox_chofer)) {
@@ -270,7 +271,7 @@
                                                 $result_choferes = mysqli_query($conexion, $search_choferes);
 
                                                 while($rowChofer = mysqli_fetch_array($result_choferes)) {
-                                                    $idChofer = $rowChofer['id_user'];
+                                                    $idChofer = $rowChofer['id'];
                                                     $nameChofer = $rowChofer['name'];
                                            ?>
                                             <option value="<?php echo $idChofer ?>"><?php echo $nameChofer; ?></option>
@@ -333,7 +334,7 @@
                     </div>
                     <div class="modal-body">
                        <form action="new-inbox-for-admin.php" method="POST" enctype="multipart/form-data">
-                           <input type="text" name="id_chofer_uid" value="<?php echo $uid2; ?>">
+                           <input type="hidden" name="id_chofer_uid" value="<?php echo $uid; ?>">
                            <div class="row">
                                <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12 col-xxl-12">
                                    <div class="form-group">

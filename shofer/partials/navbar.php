@@ -8,7 +8,7 @@
     $typeUser = $_SESSION['Type'];
     $name = $_SESSION['name'];
     $uid = $_SESSION['UID'];
-    $uid2 = $_SESSION['UID2'];
+    //$uid2 = $_SESSION['UID2'];
  ?>
  
  <!-- TopBar -->
@@ -53,7 +53,7 @@
         <i class="fas fa-bell fa-fw"  onclick="notificationChofer()"></i>
         <span class="badge badge-danger badge-counter" id="notification_count">
           <?php 
-            $search_notification_count = "SELECT * FROM asign_orders_chofer WHERE status = 0 AND id_user = '$uid2'";
+            $search_notification_count = "SELECT * FROM asign_orders_chofer WHERE status = 0 AND id_user = '$uid'";
             $result_notification_count = mysqli_query($conexion, $search_notification_count);
 
             $count_notification = mysqli_num_rows($result_notification_count);
@@ -68,7 +68,7 @@
         Notificaciones
       </h6>
       <?php 
-        $data_of_notifications = "SELECT * FROM orders INNER JOIN asign_orders_chofer ON orders.id_order = asign_orders_chofer.id_order INNER JOIN choferes ON asign_orders_chofer.id_user = choferes.id_user WHERE asign_orders_chofer.id_user = '$uid2' ORDER BY created_at DESC LIMIT 10";
+        $data_of_notifications = "SELECT * FROM orders INNER JOIN asign_orders_chofer ON orders.id_order = asign_orders_chofer.id_order INNER JOIN users ON users.id = asign_orders_chofer.id_user WHERE asign_orders_chofer.id_user = '$uid' ORDER BY created_at DESC LIMIT 10";
         $result_of_notifications = mysqli_query($conexion, $data_of_notifications);
 
         while($rowNotification = mysqli_fetch_array($result_of_notifications)) {
@@ -211,7 +211,7 @@
         Notificaciones de servicios entregados
       </h6>
       <?php 
-        $data_of_notifications = "SELECT * FROM orders INNER JOIN delivery_chofer ON orders.id_order = delivery_chofer.id_order INNER JOIN choferes ON choferes.id_user = delivery_chofer.id_user ORDER BY hour_order_delivery DESC LIMIT 10";
+        $data_of_notifications = "SELECT * FROM orders INNER JOIN delivery_chofer ON orders.id_order = delivery_chofer.id_order INNER JOIN users ON users.id = delivery_chofer.id_user ORDER BY hour_order_delivery DESC LIMIT 10";
         $result_of_notifications = mysqli_query($conexion, $data_of_notifications);
 
         while($rowNotification = mysqli_fetch_array($result_of_notifications)) {
@@ -243,7 +243,7 @@
         <i class="bi bi-inbox-fill" onclick="cleanNotificationinbox()"></i>
         <span class="badge badge-danger badge-counter" id="notification-count-inbox">
           <?php 
-            $search_notification_count = "SELECT * FROM inbox WHERE status = 0 AND id_user = '$uid2'";
+            $search_notification_count = "SELECT * FROM inbox WHERE status = 0 AND id_user = '$uid'";
             $result_notification_count = mysqli_query($conexion, $search_notification_count);
 
             $count_notification = mysqli_num_rows($result_notification_count);
@@ -258,7 +258,7 @@
         Notificaciones de mensajes
       </h6>
       <?php 
-        $data_of_notifications = "SELECT * FROM users INNER JOIN inbox ON users.id_user = inbox.id_user WHERE inbox.id_user = '$uid2' AND type = 'Chofer' ORDER BY created_at DESC LIMIT 10";
+        $data_of_notifications = "SELECT * FROM users INNER JOIN inbox ON users.id = inbox.id_user WHERE inbox.id_user = '$uid' AND type = 'Chofer' ORDER BY created_at DESC LIMIT 10";
         $result_of_notifications = mysqli_query($conexion, $data_of_notifications);
 
         while($rowNotification = mysqli_fetch_array($result_of_notifications)) {
@@ -305,7 +305,7 @@
         Notificaciones de mensajes
       </h6>
       <?php 
-        $data_of_notifications = "SELECT * FROM inbox_admin INNER JOIN choferes ON inbox_admin.id_user = choferes.id_user ORDER BY created_at DESC LIMIT 10";
+        $data_of_notifications = "SELECT * FROM inbox_admin ORDER BY created_at DESC LIMIT 10";
         $result_of_notifications = mysqli_query($conexion, $data_of_notifications);
 
         while($rowNotification = mysqli_fetch_array($result_of_notifications)) {
@@ -318,7 +318,7 @@
           </div>
           <div>
             <div class="small text-gray-500"><?php echo date("m/d/Y h:i A", strtotime($rowNotification['created_at'])); ?></div>
-              <span class="font-weight-bold"><?php echo $rowNotification['name']; ?></span><br>
+              <span class="font-weight-bold"><?php echo $rowNotification['name_user']; ?></span><br>
               <small class="font-weight-bold"><?php echo $rowNotification['asunto']; ?></small>
             </div>
         </a>

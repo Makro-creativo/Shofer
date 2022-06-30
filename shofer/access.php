@@ -6,7 +6,7 @@
     $password = $_POST['password'];
 
     // Consultas para traer el nombre de usuario y contraseña del usuario que este ingresando
-    $query_users = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+    $query_users = "SELECT * FROM users WHERE (username = '$username' AND password = '$password') OR (username = '$username' AND password = '$password')";
     $result_users = mysqli_query($conexion, $query_users);
 
     // Preguntando si hay algún usuario registrado en la Base de datos
