@@ -9,9 +9,8 @@
 
     $uid = $_SESSION['UID'];
 
-
-    if(isset($_POST['save'])) {
-        $idChofer = $_POST['id_chofer_data'];
+    if(isset($_POST['edit'])) {
+        $idEditData = $_POST['id_chofer_edit'];
         $vehicle = $_POST['vehicle'];
         $plates = $_POST['plates'];
         $adress = $_POST['adress'];
@@ -80,6 +79,9 @@
              echo "no es la extension";
          }
 
+        $cardNumber = $_POST['card_number'];
+        $bank = $_POST['bank'];
+
          // Imagen de conducir
          $directorio4 = "assets/images/"; 
          $nombreDo4 = $_FILES['image_conducir']['name'];
@@ -101,23 +103,15 @@
              echo "no es la extension";
          }
 
-        $cardNumber = $_POST['card_number'];
-        $bank = $_POST['bank'];
+         $query_update = "UPDATE drivers SET vehicle='$vehicle', plates='$plates', adress='$adress', account_number='$accountNumber', price_for_kilometer='$price', image_ine='$ruta', image_circulacion='$ruta2', image_personal='$ruta3', card_number='$cardNumber', bank='$bank', image_conducir='$ruta4' WHERE id = '$idEditData'";
+         $result_update = mysqli_query($conexion, $query_update);
 
-        $search_name_user = "SELECT name FROM users WHERE id = '$uid'";
-        $result_users_name = mysqli_query($conexion, $search_name_user);
-
-        $rowUser = mysqli_fetch_array($result_users_name);
-        $nameChofer = $rowUser['name'];
-
-        $query_drivers = "INSERT INTO drivers(id_user, name_driver, vehicle, plates, adress, account_number, price_for_kilometer, image_ine, image_circulacion, image_personal, card_number, bank, created_at, image_conducir) VALUES('$uid', '$nameChofer', '$vehicle', '$plates', '$adress', '$accountNumber', '$price', '$ruta', '$ruta2', '$ruta3', '$cardNumber', '$bank', NOW(), '$ruta4')";
-        $result_drivers = mysqli_query($conexion, $query_drivers);
-
-        if($result_drivers) {
-            echo "<script>window.location='new-data-driver.php?bien'; </script>";
-        }
+         if($result_update) {
+            echo "<script>window.location='edit-data-drivers.php?bien'; </script>";
+         }
     }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -125,15 +119,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHO-FER - mis datos</title>
-    <link rel="shortcut icon" href="assets/images/favicon_shofer.svg" type="image/x-icon">
+    <title>SHO-FER - editar</title>
     <link rel="shortcut icon" href="assets/images/favicon_shofer.svg" type="image/x-icon">
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="../css/ruang-admin.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
-    <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../vendor/datatables/dataTables.bootstrap4.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <style>
     .navbar-light {
@@ -146,24 +139,52 @@
   </style>
 </head>
 <body>
-        <?php   
-            if(isset($_GET['bien'])){
-        ?>
-            <script>
-                Swal.fire({
-                    title: 'Listo',
-                    text: 'Se guardo correctamente!',
-                    icon: 'success',
-                        confirmButtonText: 'Ok'
-                    })
-                    .then(function() {
-                        window.location = "show-data-driver.php";
-                });
-            </script>
-        <?php } ?>
-
     <div id="wrapper">
+    <?php   
+        if(isset($_GET['bien'])){
+    ?>
+        <script>
+            Swal.fire({
+                title: 'Listo',
+                text: 'Se actualizo correctamente!',
+                icon: 'success',
+                    confirmButtonText: 'Ok'
+                })
+                .then(function() {
+                    window.location = "show-data-driver.php";
+            });
+        </script>
+    <?php } ?>
+
         <?php include "./partials/menuLeft.php" ?>
+
+        <?php 
+            include "./config/conexion.php";
+
+            if(isset($_GET['id'])) {
+                $idEdit = $_GET['id'];
+
+                $search_data_drivers = "SELECT * FROM drivers WHERE id = '$idEdit'";
+                $result_data_drivers = mysqli_query($conexion, $search_data_drivers);
+
+                if($result_data_drivers) {
+                    $rowDriver = mysqli_fetch_array($result_data_drivers);
+
+                    $nameDriver = $rowDriver['name_driver'];
+                    $vehicle = $rowDriver['vehicle'];
+                    $plates = $rowDriver['plates'];
+                    $adress = $rowDriver['adress'];
+                    $accountNumber = $rowDriver['account_number'];
+                    $price = $rowDriver['price_for_kilometer'];
+                    $imageIne = $rowDriver['image_ine'];
+                    $imageCirculacion = $rowDriver['image_circulacion'];
+                    $imagePersonal = $rowDriver['image_personal'];
+                    $cardNumber = $rowDriver['card_number'];
+                    $bank = $rowDriver['bank'];
+                    $imageConducir = $rowDriver['image_conducir'];
+                }
+            }
+        ?>
         
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
@@ -171,32 +192,32 @@
 
                 <div class="container">
                     <div class="row">
-                       <div class="d-flex justify-content-between align-items-center mb-4">
-                            <h2 class="text-dark">Registrar mis datos</h2>
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="text-dark">Editar mis datos</h2>
 
-                            <a href="DashboardChofer.php" class="btn btn-secondary btn-sm">
+                            <a href="show-data-driver.php" class="btn btn-secondary btn-sm">
                                 <i class="bi bi-arrow-counterclockwise"></i>
                                 Regresar atrás
                             </a>
                        </div>
 
-                        <div class="col-md-12 col-sm-12-col-lg-12 col-xl-12 col-xxl-12">
+                       <div class="col-md-12 col-sm-12-col-lg-12 col-xl-12 col-xxl-12">
                             <div class="card shadow-lg">
                                 <div class="card-body">
-                                    <form action="new-data-driver.php" method="POST" enctype="multipart/form-data">
-                                        <input type="hidden" name="id_chofer_data" value="<?php echo $uid; ?>">
+                                    <form action="edit-data-drivers.php" method="POST" enctype="multipart/form-data">
+                                        <input type="hidden" name="id_chofer_edit" value="<?php echo $idEdit; ?>">
                                         <div class="row">
                                             <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
                                                     <label>Vehículo: </label>
-                                                    <input type="text" placeholder="Nombre del vehículo..." name="vehicle" class="form-control">
+                                                    <input value="<?php echo $vehicle; ?>" type="text" placeholder="Nombre del vehículo..." name="vehicle" class="form-control">
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
                                                     <label>Placas: </label>
-                                                    <input type="text" placeholder="Número de placas..." name="plates" class="form-control">
+                                                    <input value="<?php echo $plates; ?>" type="text" placeholder="Número de placas..." name="plates" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -205,14 +226,14 @@
                                             <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
                                                     <label>Dirección: </label>
-                                                    <input type="text" placeholder="Tu dirección..." name="adress" class="form-control">
+                                                    <input value="<?php echo $adress; ?>" type="text" placeholder="Tu dirección..." name="adress" class="form-control">
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
                                                     <label>Número de cuenta: </label>
-                                                    <input type="text" placeholder="Número de tu cuenta bancaría..." name="account_number" class="form-control">
+                                                    <input value="<?php echo $accountNumber; ?>" type="text" placeholder="Número de tu cuenta bancaría..." name="account_number" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -221,14 +242,14 @@
                                             <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
                                                     <label>Número de tarjeta: </label>
-                                                    <input type="text" placeholder="Número de tarjeta de crédito..." name="card_number" class="form-control">
+                                                    <input value="<?php echo $cardNumber; ?>" type="text" placeholder="Número de tarjeta de crédito..." name="card_number" class="form-control">
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
                                                     <label>Nombre del banco: </label>
-                                                    <input type="text" placeholder="Nombre del banco..." name="bank" class="form-control">
+                                                    <input value="<?php echo $bank; ?>" type="text" placeholder="Nombre del banco..." name="bank" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -237,14 +258,14 @@
                                             <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
                                                     <label>Precio por kilometro: </label>
-                                                    <input type="text" placeholder="Ejemplo: 12, 15, etc..." name="price_for_kilometer" class="form-control">
+                                                    <input value="<?php echo $price; ?>" type="text" placeholder="Ejemplo: 12, 15, etc..." name="price_for_kilometer" class="form-control">
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Foto del Ine: </label>
-                                                    <input type="file" name="image_ine" class="form-control">
+                                                    <input type="file" name="image_ine" class="form-control" value="<?php echo $imageIne; ?>">
                                                 </div>
                                             </div>
                                         </div>
@@ -253,14 +274,14 @@
                                             <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Tarjeta de circulación: </label>
-                                                    <input type="file" name="image_circulacion" class="form-control">
+                                                    <input type="file" name="image_circulacion" class="form-control" value="<?php echo $imageCirculacion; ?>">
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Foto personal: </label>
-                                                    <input type="file" name="image_personal" class="form-control">
+                                                    <input type="file" name="image_personal" class="form-control" value="<?php echo $imagePersonal; ?>">
                                                 </div>
                                             </div>
                                         </div>
@@ -269,12 +290,12 @@
                                             <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12 col-xxl-12">
                                                 <div class="form-group">
                                                     <label class="form-label">Foto de licencia de conducir: </label>
-                                                    <input type="file" name="image_conducir" class="form-control">
+                                                    <input type="file" name="image_conducir" class="form-control" value="<?php echo $imageConducir; ?>">
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <input type="submit" value="Registrar" class="btn btn-primary btn-block" name="save">
+                                        <input type="submit" value="Registrar" class="btn btn-primary btn-block" name="edit">
                                     </form>
                                 </div>
                             </div>
@@ -286,6 +307,7 @@
             <br>
 
             <?php include "./partials/footer.php" ?>
+
         </div>
 
     </div>
@@ -296,15 +318,17 @@
 
 
 
-    <script src="../vendor/jquery/jquery.min.js"></script>      
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="../js/ruang-admin.min.js"></script>
     <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="../vendor/chart.js/Chart.min.js"></script>
     <script src="../js/demo/chart-area-demo.js"></script> 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 </body>

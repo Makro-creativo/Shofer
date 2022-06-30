@@ -8,6 +8,7 @@
     }
 
     $uid = $_SESSION['UID'];
+    $typeUser = $_SESSION['Type'];
 ?>
 
 
@@ -84,6 +85,11 @@
                                                     <th>Foto Ine</th>
                                                     <th>Tarjeta de circulación</th>
                                                     <th>Foto personal</th>
+                                                    <th>Foto de licencia de conducir</th>
+
+                                                    <?php if($typeUser === "Chofer") {?>
+                                                        <th>Editar</th>
+                                                    <?php }?>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -108,6 +114,15 @@
                                                     <td><img src="<?php echo $row['image_ine']; ?>" alt="" class="img-fluid"></td>
                                                     <td><img src="<?php echo $row['image_circulacion']; ?>" alt="" class="img-fluid"></td>
                                                     <td><img src="<?php echo $row['image_personal']; ?>" alt="" class="img-fluid"></td>
+                                                    <td><img src="<?php echo $row['image_circulacion']; ?>" alt="" class="img-fluid"></td>
+
+                                                    <?php if($typeUser === "Chofer") {?>
+                                                        <td>
+                                                            <a href="edit-data-drivers.php?id=<?php echo $row['id']; ?>" class="btn btn-success">
+                                                                <i class="bi bi-pencil-square"></i>
+                                                            </a>
+                                                        </td>
+                                                    <?php }?>
                                                 </tr>
                                                 <?php }?>
                                             </tbody>
