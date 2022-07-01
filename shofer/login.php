@@ -15,6 +15,7 @@
   <link href="../css/ruang-admin.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     .bg-hero-login {
       background-image: url("../img/fondo_shofer.jpg");
@@ -67,11 +68,17 @@
                     <div class="form-group">
                       <input type="text" class="form-control" placeholder="Nombre de usuario..." name="username">
                     </div>
-                    <div class="form-group">
-                      <input type="password" class="form-control" placeholder="Contraseña" name="password">
+
+                    <div class="input-group">
+                      <input class="form-control py-2" type="password" name="password" placeholder="Contraseña" id="txtPassword">
+                      <span class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" onclick="showPassword()" id="show_password">
+                          <i class="bi bi-eye-slash-fill"></i>
+                        </button>
+                      </span>
                     </div>
                    
-                    <div class="form-group">
+                    <div class="form-group mt-4">
                       <button type="submit" class="btn btn-secondary btn-block">
                         <i class="bi bi-box-arrow-right"></i>
                         Ingresar
@@ -101,6 +108,25 @@
   <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
   <script src="../js/ruang-admin.min.js"></script>
+  <script type="text/javascript">
+    function showPassword(){
+        let change = document.getElementById("txtPassword");
+        if(change.type == "password"){
+          change.type = "text";
+          $('.icon').removeClass('fa-solid fa-eye-slash').addClass('fa-solid fa-eye');
+        } else {
+          change.type = "password";
+          $('.icon').removeClass('fa-solid fa-eye').addClass('fa-solid fa-eye-slash');
+        }
+      } 
+      
+      $(document).ready(function () {
+      //CheckBox mostrar contraseña
+      $('#ShowPassword').click(function () {
+        $('#password').attr('type', $(this).is(':checked') ? 'text' : 'password');
+      });
+    });
+</script>
 </body>
 
 </html>

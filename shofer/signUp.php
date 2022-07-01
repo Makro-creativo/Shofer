@@ -51,6 +51,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         .hero-main {
             background-color: #000000;
@@ -140,14 +141,18 @@
 
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12 col-xxl-12">
-                                        <div class="form-group">
-                                            <label>Contraseña</label>
-                                            <input type="text" placeholder="Contraseña" class="form-control" name="password" required>
+                                        <div class="input-group">
+                                            <input class="form-control py-2" type="password" name="password" placeholder="Contraseña" id="txtPassword">
+                                            <span class="input-group-append">
+                                                <button class="btn btn-outline-secondary" type="button" onclick="showPassword()" id="show_password">
+                                                <i class="bi bi-eye-slash-fill"></i>
+                                                </button>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <input type="submit" value="Regístrate" class="btn btn-dark btn-block" name="save">
+                                <input type="submit" value="Regístrate" class="btn btn-dark btn-block mt-4" name="save">
                             </form>
                            </div>
                        </div>
@@ -168,5 +173,24 @@
   <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
   <script src="../js/ruang-admin.min.js"></script>
+  <script type="text/javascript">
+    function showPassword(){
+        let change = document.getElementById("txtPassword");
+        if(change.type == "password"){
+          change.type = "text";
+          $('.icon').removeClass('fa-solid fa-eye-slash').addClass('fa-solid fa-eye');
+        } else {
+          change.type = "password";
+          $('.icon').removeClass('fa-solid fa-eye').addClass('fa-solid fa-eye-slash');
+        }
+      } 
+      
+      $(document).ready(function () {
+      //CheckBox mostrar contraseña
+      $('#ShowPassword').click(function () {
+        $('#password').attr('type', $(this).is(':checked') ? 'text' : 'password');
+      });
+    });
+</script>
 </body>
 </html>
