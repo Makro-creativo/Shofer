@@ -15,7 +15,6 @@
         $plates = $_POST['plates'];
         $adress = $_POST['adress'];
         $accountNumber = $_POST['account_number'];
-        $price = $_POST['price_for_kilometer'];
         //imagen Ine
         $directorio = "assets/images/"; 
         $nombreDoc = $_FILES['image_ine']['name'];
@@ -103,7 +102,9 @@
              echo "no es la extension";
          }
 
-         $query_update = "UPDATE drivers SET vehicle='$vehicle', plates='$plates', adress='$adress', account_number='$accountNumber', price_for_kilometer='$price', image_ine='$ruta', image_circulacion='$ruta2', image_personal='$ruta3', card_number='$cardNumber', bank='$bank', image_conducir='$ruta4' WHERE id = '$idEditData'";
+         $numberSeguro = $_POST['number_seguro'];
+
+         $query_update = "UPDATE drivers SET vehicle='$vehicle', plates='$plates', adress='$adress', account_number='$accountNumber', price_for_kilometer='$price', image_ine='$ruta', image_circulacion='$ruta2', image_personal='$ruta3', card_number='$cardNumber', bank='$bank', image_conducir='$ruta4', number_seguro='$numberSeguro' WHERE id = '$idEditData'";
          $result_update = mysqli_query($conexion, $query_update);
 
          if($result_update) {
@@ -175,13 +176,13 @@
                     $plates = $rowDriver['plates'];
                     $adress = $rowDriver['adress'];
                     $accountNumber = $rowDriver['account_number'];
-                    $price = $rowDriver['price_for_kilometer'];
                     $imageIne = $rowDriver['image_ine'];
                     $imageCirculacion = $rowDriver['image_circulacion'];
                     $imagePersonal = $rowDriver['image_personal'];
                     $cardNumber = $rowDriver['card_number'];
                     $bank = $rowDriver['bank'];
                     $imageConducir = $rowDriver['image_conducir'];
+                    $numberSeguro = $rowDriver['number_seguro'];
                 }
             }
         ?>
@@ -255,14 +256,7 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
-                                                <div class="form-group">
-                                                    <label>Precio por kilometro: </label>
-                                                    <input value="<?php echo $price; ?>" type="text" placeholder="Ejemplo: 12, 15, etc..." name="price_for_kilometer" class="form-control">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
+                                            <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12 col-xxl-12">
                                                 <div class="form-group">
                                                     <label class="form-label">Foto del Ine: </label>
                                                     <input type="file" name="image_ine" class="form-control" value="<?php echo $imageIne; ?>">
@@ -287,10 +281,17 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Foto de licencia de conducir: </label>
                                                     <input type="file" name="image_conducir" class="form-control" value="<?php echo $imageConducir; ?>">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">Número de seguro: </label>
+                                                    <input type="text" name="number_seguro" class="form-control" value="<?php echo $numberSeguro; ?>">
                                                 </div>
                                             </div>
                                         </div>

@@ -16,7 +16,6 @@
         $plates = $_POST['plates'];
         $adress = $_POST['adress'];
         $accountNumber = $_POST['account_number'];
-        $price = $_POST['price_for_kilometer'];
         //imagen Ine
         $directorio = "assets/images/"; 
         $nombreDoc = $_FILES['image_ine']['name'];
@@ -103,6 +102,7 @@
 
         $cardNumber = $_POST['card_number'];
         $bank = $_POST['bank'];
+        $numberSeguro = $_POST['number_seguro'];
 
         $search_name_user = "SELECT name FROM users WHERE id = '$uid'";
         $result_users_name = mysqli_query($conexion, $search_name_user);
@@ -110,7 +110,7 @@
         $rowUser = mysqli_fetch_array($result_users_name);
         $nameChofer = $rowUser['name'];
 
-        $query_drivers = "INSERT INTO drivers(id_user, name_driver, vehicle, plates, adress, account_number, price_for_kilometer, image_ine, image_circulacion, image_personal, card_number, bank, created_at, image_conducir) VALUES('$uid', '$nameChofer', '$vehicle', '$plates', '$adress', '$accountNumber', '$price', '$ruta', '$ruta2', '$ruta3', '$cardNumber', '$bank', NOW(), '$ruta4')";
+        $query_drivers = "INSERT INTO drivers(id_user, name_driver, vehicle, plates, adress, account_number, image_ine, image_circulacion, image_personal, card_number, bank, created_at, image_conducir, number_seguro) VALUES('$uid', '$nameChofer', '$vehicle', '$plates', '$adress', '$accountNumber', '$ruta', '$ruta2', '$ruta3', '$cardNumber', '$bank', NOW(), '$ruta4', '$numberSeguro')";
         $result_drivers = mysqli_query($conexion, $query_drivers);
 
         if($result_drivers) {
@@ -189,14 +189,14 @@
                                             <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
                                                     <label>Vehículo: </label>
-                                                    <input type="text" placeholder="Nombre del vehículo..." name="vehicle" class="form-control">
+                                                    <input type="text" placeholder="Nombre del vehículo..." name="vehicle" class="form-control" required>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
                                                     <label>Placas: </label>
-                                                    <input type="text" placeholder="Número de placas..." name="plates" class="form-control">
+                                                    <input type="text" placeholder="Número de placas..." name="plates" class="form-control" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -205,14 +205,14 @@
                                             <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
                                                     <label>Dirección: </label>
-                                                    <input type="text" placeholder="Tu dirección..." name="adress" class="form-control">
+                                                    <input type="text" placeholder="Tu dirección..." name="adress" class="form-control" required>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
                                                     <label>Número de cuenta: </label>
-                                                    <input type="text" placeholder="Número de tu cuenta bancaría..." name="account_number" class="form-control">
+                                                    <input type="text" placeholder="Número de tu cuenta bancaría..." name="account_number" class="form-control" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -221,30 +221,23 @@
                                             <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
                                                     <label>Número de tarjeta: </label>
-                                                    <input type="text" placeholder="Número de tarjeta de crédito..." name="card_number" class="form-control">
+                                                    <input type="text" placeholder="Número de tarjeta de crédito..." name="card_number" class="form-control" required>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
                                                     <label>Nombre del banco: </label>
-                                                    <input type="text" placeholder="Nombre del banco..." name="bank" class="form-control">
+                                                    <input type="text" placeholder="Nombre del banco..." name="bank" class="form-control" required>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
-                                                <div class="form-group">
-                                                    <label>Precio por kilometro: </label>
-                                                    <input type="text" placeholder="Ejemplo: 12, 15, etc..." name="price_for_kilometer" class="form-control">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
+                                            <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12 col-xxl-12">
                                                 <div class="form-group">
                                                     <label class="form-label">Foto del Ine: </label>
-                                                    <input type="file" name="image_ine" class="form-control">
+                                                    <input type="file" name="image_ine" class="form-control" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -253,23 +246,30 @@
                                             <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Tarjeta de circulación: </label>
-                                                    <input type="file" name="image_circulacion" class="form-control">
+                                                    <input type="file" name="image_circulacion" class="form-control" required>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Foto personal: </label>
-                                                    <input type="file" name="image_personal" class="form-control">
+                                                    <input type="file" name="image_personal" class="form-control" required>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Foto de licencia de conducir: </label>
-                                                    <input type="file" name="image_conducir" class="form-control">
+                                                    <input type="file" name="image_conducir" class="form-control" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">Número de seguro: </label>
+                                                    <input type="text" name="number_seguro" class="form-control" placeholder="Número de seguro" required>
                                                 </div>
                                             </div>
                                         </div>

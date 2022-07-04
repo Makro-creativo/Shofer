@@ -81,11 +81,11 @@
                                                     <th>Número de cuenta</th>
                                                     <th>Número de tarjeta de crédito</th>
                                                     <th>Nombre del banco</th>
-                                                    <th>Precio por kilometro</th>
                                                     <th>Foto Ine</th>
                                                     <th>Tarjeta de circulación</th>
                                                     <th>Foto personal</th>
                                                     <th>Foto de licencia de conducir</th>
+                                                    <th>Número de seguro</th>
 
                                                     <?php if($typeUser === "Chofer") {?>
                                                         <th>Editar</th>
@@ -110,11 +110,11 @@
                                                     <td><?php echo $row['account_number']; ?></td>
                                                     <td><?php echo $row['card_number']; ?></td>
                                                     <td><?php echo $row['bank']; ?></td>
-                                                    <td><?php echo number_format($row['price_for_kilometer'], 2)." Pesos"; ?></td>
                                                     <td><img src="<?php echo $row['image_ine']; ?>" alt="" class="img-fluid"></td>
                                                     <td><img src="<?php echo $row['image_circulacion']; ?>" alt="" class="img-fluid"></td>
                                                     <td><img src="<?php echo $row['image_personal']; ?>" alt="" class="img-fluid"></td>
                                                     <td><img src="<?php echo $row['image_circulacion']; ?>" alt="" class="img-fluid"></td>
+                                                    <td><?php echo $row['number_seguro']; ?></td>
 
                                                     <?php if($typeUser === "Chofer") {?>
                                                         <td>
