@@ -301,7 +301,7 @@
                             <?php 
                                 include "./config/conexion.php";
 
-                                $show_comments = "SELECT * FROM orders INNER JOIN comments ON orders.id_order = comments.id_order INNER JOIN clients ON clients.id_user = comments.id_user WHERE comments.id_order = '$folio'";
+                                $show_comments = "SELECT * FROM orders INNER JOIN comments ON orders.id_order = comments.id_order INNER JOIN users ON users.id = comments.id_user WHERE comments.id_order = '$folio'";
                                 $result = mysqli_query($conexion, $show_comments);
 
                                 while($rowComments = mysqli_fetch_array($result)) {
@@ -432,7 +432,7 @@
                                 <?php 
                                     include "./config/conexion.php";
                                     
-                                    $show_comments = "SELECT * FROM orders INNER JOIN comments ON orders.id_order = comments.id_order INNER JOIN clients ON clients.id_user = comments.id_user WHERE comments.id_order = '$folio'";
+                                    $show_comments = "SELECT * FROM orders INNER JOIN comments ON orders.id_order = comments.id_order INNER JOIN users ON users.id = comments.id_user WHERE comments.id_order = '$folio'";
                                     $result_show_comments = mysqli_query($conexion, $show_comments);
 
                                     while($rowComments = mysqli_fetch_array($result_show_comments)) {

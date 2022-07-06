@@ -163,7 +163,7 @@
         Notificaciones de comentarios
       </h6>
       <?php 
-        $data_of_notifications_comments = "SELECT * FROM orders INNER JOIN comments ON orders.id_order = comments.id_order INNER JOIN clients ON clients.id_user = comments.id_user ORDER BY created_at DESC LIMIT 10";
+        $data_of_notifications_comments = "SELECT * FROM orders INNER JOIN comments ON orders.id_order = comments.id_order INNER JOIN users ON users.id = comments.id_user ORDER BY created_at DESC LIMIT 10";
         $result_of_notifications_comments = mysqli_query($conexion, $data_of_notifications_comments);
 
         while($rowNotificationComments = mysqli_fetch_array($result_of_notifications_comments)) {
@@ -176,7 +176,7 @@
           </div>
           <div>
             <div class="small text-gray-500"><?php echo date("m/d/Y h:i A", strtotime($rowNotificationComments['created_at'])); ?></div>
-              <span class="font-weight-bold"><?php echo $rowNotificationComments['name_client']; ?></span>
+              <span class="font-weight-bold"><?php echo $rowNotificationComments['name']; ?></span>
             </div>
         </a>
       <?php }?>
