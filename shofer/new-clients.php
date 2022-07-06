@@ -121,15 +121,15 @@
                                                 <?php 
                                                     include "./config/conexion.php";
 
-                                                    $search_data_clients = "SELECT * FROM clients ORDER BY id_user ASC";
+                                                    $search_data_clients = "SELECT * FROM users WHERE type = 'Cliente' ORDER BY id ASC";
                                                     $result_data_clients = mysqli_query($conexion, $search_data_clients);
 
                                                     while($row = mysqli_fetch_array($result_data_clients)) {
                                                 ?>
                                                 <tr>
-                                                    <td><?php echo $row['number_client']; ?></td>
+                                                    <td><?php echo "F00".$row['id']; ?></td>
                                                     <td><?php echo $row['name_flower']; ?></td>
-                                                    <td><?php echo $row['name_client']; ?></td>
+                                                    <td><?php echo $row['name']; ?></td>
                                                     <td>
                                                         <?php 
                                                             $telephone = $row['phone']; 
@@ -160,7 +160,7 @@
 
                                                     <?php if($typeUser === "Administrador") {?>
                                                         <td>
-                                                            <a href="edit-client.php?id_user=<?php echo $row['id_user']; ?>" class="btn btn-success">
+                                                            <a href="edit-client.php?id=<?php echo $row['id']; ?>" class="btn btn-success">
                                                                 <i class="bi bi-pencil-square"></i>
                                                             </a>
                                                         </td>
@@ -168,7 +168,7 @@
 
                                                     <?php if($typeUser === "Administrador") {?>
                                                         <td>
-                                                            <a href="delete-client.php?id_user=<?php echo $row['id_user']; ?>" class="btn btn-danger">
+                                                            <a href="delete-client.php?id=<?php echo $row['id']; ?>" class="btn btn-danger">
                                                                 <i class="bi bi-trash"></i>
                                                             </a>
                                                         </td>

@@ -1,16 +1,18 @@
 <?php 
     include "./config/conexion.php";
 
+    error_reporting(0);
+
     if(isset($_POST['edit'])) {
        $idUser = $_POST['id_client_edit'];
-       $numberClient = $_POST['number_client'];
+       //$numberClient = $_POST['id'];
        $nameFlower = $_POST['name_flower'];
-       $nameClient = $_POST['name_client'];
+       $nameClient = $_POST['name'];
        $phone = $_POST['phone'];
        $adress = $_POST['adress'];
        $status = $_POST['status'];
 
-       $query_update_client = "UPDATE clients SET id_user='$idUser', number_client='$numberClient', name_flower='$nameFlower', name_client='$numberClient', phone='$phone', adress='$adress', status='$status' WHERE id_user = '$idUser'";
+       $query_update_client = "UPDATE users SET id='$idUser', name_flower='$nameFlower', name='$nameClient', phone='$phone', adress='$adress', status='$status' WHERE id = '$idUser'";
        $result_update_client = mysqli_query($conexion, $query_update_client);
 
        if($result_update_client) {
@@ -73,18 +75,18 @@
                 <?php 
                     include "./config/conexion.php";
                     
-                    if(isset($_GET['id_user'])) {
-                        $idUser = $_GET['id_user'];
+                    if(isset($_GET['id'])) {
+                        $idUser = $_GET['id'];
 
-                        $search_client = "SELECT * FROM clients WHERE id_user = '$idUser'";
+                        $search_client = "SELECT * FROM users WHERE id = '$idUser' AND type = 'Cliente'";
                         $result_client = mysqli_query($conexion, $search_client);
 
                         if($result_client) {
                             $row = mysqli_fetch_array($result_client);
 
-                            $numberClient = $row['number_client'];
+                            $numberClient = "F00".$row['id'];
                             $nameFlower = $row['name_flower'];
-                            $nameClient = $row['name_client'];
+                            $nameClient = $row['name'];
                             $phone = $row['phone'];
                             $adress = $row['adress'];
                             $status = $row['status'];
@@ -121,7 +123,8 @@
                                             <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
                                                 <div class="form-group">
                                                     <label>Número de cliente: </label>
-                                                    <input value="<?php echo $numberClient; ?>" type="text" placeholder="Ejemplo: cli01, cli02, etc..." name="number_client" class="form-control">
+                                                    <input value="<?php echo $numberClient; ?>" type="text" placeholder="Ejemplo: cli01, cli02, etc..." name="id" class="form-control" disabled
+                                                    >
                                                 </div>
                                             </div>
 
@@ -135,7 +138,7 @@
                                             <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
                                                 <div class="form-group">
                                                     <label>Nombre del encargado: </label>
-                                                    <input value="<?php echo $nameClient; ?>" type="text" placeholder="Ejemplo: Jose Hernandez, etc..." name="name_client" class="form-control">
+                                                    <input value="<?php echo $nameClient; ?>" type="text" placeholder="Ejemplo: Jose Hernandez, etc..." name="name" class="form-control">
                                                 </div>
                                             </div>
                                         </div>

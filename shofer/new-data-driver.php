@@ -110,10 +110,15 @@
         $rowUser = mysqli_fetch_array($result_users_name);
         $nameChofer = $rowUser['name'];
 
-        $query_drivers = "INSERT INTO drivers(id_user, name_driver, vehicle, plates, adress, account_number, image_ine, image_circulacion, image_personal, card_number, bank, created_at, image_conducir, number_seguro) VALUES('$uid', '$nameChofer', '$vehicle', '$plates', '$adress', '$accountNumber', '$ruta', '$ruta2', '$ruta3', '$cardNumber', '$bank', NOW(), '$ruta4', '$numberSeguro')";
-        $result_drivers = mysqli_query($conexion, $query_drivers);
+        $verify_exist_data = "SELECT * FROM drivers WHERE name_driver = '$nameChofer'";
+        $result_verify = mysqli_query($conexion, $verify_exist_data);
 
-        if($result_drivers) {
+        if(mysqli_num_rows($result_verify) > 0) {
+            echo "<script>window.location='new-data-driver.php?verify'; </script>";
+        } else {
+            $query_drivers = "INSERT INTO drivers(id_user, name_driver, vehicle, plates, adress, account_number, image_ine, image_circulacion, image_personal, card_number, bank, created_at, image_conducir, number_seguro) VALUES('$uid', '$nameChofer', '$vehicle', '$plates', '$adress', '$accountNumber', '$ruta', '$ruta2', '$ruta3', '$cardNumber', '$bank', NOW(), '$ruta4', '$numberSeguro')";
+            $result_drivers = mysqli_query($conexion, $query_drivers);
+
             echo "<script>window.location='new-data-driver.php?bien'; </script>";
         }
     }
@@ -143,6 +148,12 @@
     .sidebar-brand {
       background-color: #555555 !important;
     }
+
+    img {
+        display: none;
+        width: 128px;
+        height: 128px;
+    }
   </style>
 </head>
 <body>
@@ -161,6 +172,19 @@
                 });
             </script>
         <?php } ?>
+
+        <?php
+        if(isset($_GET['verify'])) {
+        ?>       
+
+        <script>
+            Swal.fire(
+                'Error',
+                'Ya existe un chofer registrado con esté nombre',
+                'error'
+            )
+        </script>
+    <?php } ?>
 
     <div id="wrapper">
         <?php include "./partials/menuLeft.php" ?>
@@ -274,7 +298,8 @@
                                             </div>
                                         </div>
 
-                                        <input type="submit" value="Registrar" class="btn btn-primary btn-block" name="save">
+                                        <input type="submit" value="Registrar" class="btn btn-primary btn-block" name="save" id="button-hidden">
+                                        <img src="https://i.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif">
                                     </form>
                                 </div>
                             </div>
@@ -307,5 +332,20 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script>
+        function esperaUnSegundo($boton) {
+            $boton.prop('disabled', true);
+            $('img').show();
+
+            setTimeout(() => {
+                $boton.prop('disabled', false);
+                $('img').hide();
+            }, 1000);
+        }
+
+        $('button-hidden').on('click', function() {
+            esperaUnSegundo($(this));
+        });
+    </script>
 </body>
 </html>

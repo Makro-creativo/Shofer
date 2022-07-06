@@ -12,14 +12,14 @@
     if(isset($_POST['edit'])) {
         $idOrder = $_POST['id_order_edit'];
         $dateSend = $_POST['date_send'];
-        $personReceive = $_POST['person_receive'];
+        //$personReceive = $_POST['person_receive'];
         $colonia = $_POST['colonia'];
         $cruceCalles = $_POST['cruce_calles'];
-        $nameFlower = $_POST['name_flower'];
-        $phone = $_POST['phone'];
-        $nameEncargado = $_POST['name_encargado'];
-        $adress = $_POST['adress'];
-        $nameAndPhone = $_POST['name_and_phone'];
+        //$nameFlower = $_POST['name_flower'];
+        //$phone = $_POST['phone'];
+        //$nameEncargado = $_POST['name_encargado'];
+        //$adress = $_POST['adress'];
+        //$nameAndPhone = $_POST['name_and_phone'];
         $referencesCoto = $_POST['references_coto'];
 
         //imagen
@@ -43,7 +43,16 @@
             echo "no es la extension";
         }
 
-        $query_update = "UPDATE orders SET date_send='$dateSend', person_receive='$personReceive', colonia='$colonia', cruce_calles='$cruceCalles', name_flower='$nameFlower', phone='$phone', name_encargado='$nameEncargado', adress='$adress', id_user='$uid', name_and_phone='$nameAndPhone', references_coto='$referencesCoto', image='$ruta' WHERE id_order = '$idOrder'";
+        $search_data_users = "SELECT name, name_flower, phone, adress FROM users WHERE id = '$uid'";
+        $result_data_users = mysqli_query($conexion, $search_data_users);
+
+        $rowUsers = mysqli_fetch_array($result_data_users);
+        $nameEncargado = $rowUsers['name'];
+        $nameFlower = $rowUsers['name_flower'];
+        $adress = $rowUsers['adress'];
+        $phone = $rowUsers['phone'];
+
+        $query_update = "UPDATE orders SET date_send='$dateSend', person_receive='$nameEncargado', colonia='$colonia', cruce_calles='$cruceCalles', name_flower='$nameFlower', phone='$phone', name_encargado='$nameEncargado', adress='$adress', id_user='$uid', references_coto='$referencesCoto', image='$ruta' WHERE id_order = '$idOrder'";
         $result_update = mysqli_query($conexion, $query_update);
 
         if($result_update) {
@@ -119,7 +128,7 @@
                     $phone = $rowOrder['phone'];
                     $nameEncargado = $rowOrder['name_encargado'];
                     $adress = $rowOrder['adress'];
-                    $nameAndPhone = $rowOrder['name_and_phone'];
+                    //$nameAndPhone = $rowOrder['name_and_phone'];
                     $referencesCoto = $rowOrder['references_coto'];
                     $image = $rowOrder['image'];
                 }
@@ -156,49 +165,24 @@
                                     <form action="edit-order.php" method="POST" enctype="multipart/form-data">
                                         <input type="hidden" name="id_order_edit" value="<?php echo $idOrder; ?>">
                                         <div class="row">
-                                            <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
+                                            <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
                                                     <label>Fecha: </label>
                                                     <input value="<?php echo $dateSend; ?>" type="date" name="date_send" class="form-control">
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
-                                                <div class="form-group">
-                                                    <label>Quién recibe: </label>
-                                                    <input value="<?php echo $personReceive; ?>" type="text" placeholder="Ejemplo: Jorge Gonzales Hernandez, etc..." class="form-control" name="person_receive">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
-                                                <div class="form-group">
-                                                    <label>Teléfono: </label>
-                                                    <input value="<?php echo $phone; ?>" type="text" placeholder="Ejemplo: 33311324567, etc..." class="form-control" name="phone">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4 mt-4">
-                                                <div class="form-group">
-                                                    <label>Nombre y Teléfono de quién envía: </label>
-                                                    <input value="<?php echo $nameAndPhone; ?>" type="text" placeholder="Ejemplo: Fernando, etc..." class="form-control" name="name_and_phone">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4 mt-4">
-                                                <div class="form-group">
-                                                    <label>Dirección: </label>
-                                                    <input value="<?php echo $adress; ?>" type="text" placeholder="Ejemplo: Avenida de los arcos #476, etc..." class="form-control" name="adress">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4 mt-4">
+                                            <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
                                                     <label>Colonia y Municipio: </label>
                                                     <input value="<?php echo $colonia ?>" type="text" placeholder="Ejemplo: La moderna, etc..." class="form-control" name="colonia">
                                                 </div>
                                             </div>
+                                        </div>
+
+                                        <div class="row">
+
+                                           
 
                                             <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
@@ -218,21 +202,12 @@
                                         <div class="row">
                                             <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
-                                                    <label>Encargado de la florería: </label>
-                                                    <input value="<?php echo $nameEncargado; ?>" type="text" placeholder="Ejemplo: Adrian Hernandez, etc..." class="form-control" name="name_encargado">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
-                                                <div class="form-group">
                                                     <label>Referencias de tu domicilio: </label>
                                                     <input value="<?php echo $referencesCoto; ?>" type="text" placeholder="Ejemplo: Esta cerca de un coto, enfrenta está un súper, etc..." class="form-control" name="references_coto">
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="row">
-                                            <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Imagen del ramo: </label>
                                                     <input value="<?php echo $image; ?>" type="file" name="image" class="form-control">
@@ -240,6 +215,7 @@
                                             </div>
                                         </div>
 
+                                    
                                         <input type="submit" value="Actualizar servicio" class="btn btn-primary btn-block" name="edit">
                                     </form>
                                 </div>

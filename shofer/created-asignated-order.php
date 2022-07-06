@@ -23,7 +23,7 @@
         $result_save_asign_order = mysqli_query($conexion, $query_save_asign_order);
 
         if($result_save_asign_order) {
-            echo "<script>window.location='new-orders.php?exito'; </script>";
+            echo "<script>window.location='new-orders.php?exitoService'; </script>";
         }
     }
 ?>

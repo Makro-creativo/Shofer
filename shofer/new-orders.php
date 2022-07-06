@@ -10,13 +10,13 @@
 
     if(isset($_POST['save'])) {
         $dateSend = $_POST['date_send'];
-        $personReceive = $_POST['person_receive'];
+        //$personReceive = $_POST['person_receive'];
         $colonia = $_POST['colonia'];
         $cruceCalles = $_POST['cruce_calles'];
-        $nameFlower = $_POST['name_flower'];
-        $phone = $_POST['phone'];
-        $nameEncargado = $_POST['name_encargado'];
-        $adress = $_POST['adress'];
+        //$nameFlower = $_POST['name_flower'];
+        //$phone = $_POST['phone'];
+        //$nameEncargado = $_POST['name_encargado'];
+        //$adress = $_POST['adress'];
         $references_coto = $_POST['references_coto'];
 
         //imagen
@@ -40,7 +40,16 @@
             echo "no es la extension";
         }
 
-        $query_save_order = "INSERT INTO orders(date_send, person_receive, colonia, cruce_calles, name_flower, phone, name_encargado, adress, from_id, to_id, status, id_user, references_coto, image, created_date) VALUES('$dateSend', '$personReceive', '$colonia', '$cruceCalles', '$nameFlower', '$phone', '$nameEncargado', '$adress', '$uid', '1', '0', '$uid', '$references_coto', '$ruta', NOW())";
+        $search_data_users = "SELECT name, name_flower, phone, adress FROM users WHERE id = '$uid'";
+        $result_data_users = mysqli_query($conexion, $search_data_users);
+
+        $rowUsers = mysqli_fetch_array($result_data_users);
+        $nameEncargado = $rowUsers['name'];
+        $nameFlower = $rowUsers['name_flower'];
+        $adress = $rowUsers['adress'];
+        $phone = $rowUsers['phone'];
+
+        $query_save_order = "INSERT INTO orders(date_send, person_receive, colonia, cruce_calles, name_flower, phone, name_encargado, adress, from_id, to_id, status, id_user, references_coto, image, created_date) VALUES('$dateSend', '$nameEncargado', '$colonia', '$cruceCalles', '$nameFlower', '$phone', '$nameEncargado', '$adress', '$uid', '1', '0', '$uid', '$references_coto', '$ruta', NOW())";
         $result_save_order = mysqli_query($conexion, $query_save_order);
 
         if($result_save_order) {
@@ -94,7 +103,7 @@
         <?php } ?>
 
         <?php   
-            if(isset($_GET['exito'])){
+            if(isset($_GET['exitoService'])){
         ?>
             <script>
                 Swal.fire({
@@ -242,67 +251,30 @@
                         <form action="new-orders.php" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="id_user_Active" value="<?php echo $uid; ?>">
                             <div class="row">
-                                <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
+                                <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                     <div class="form-group">
                                         <label>Fecha: </label>
                                         <input type="date" name="date_send" class="form-control">
                                     </div>
                                 </div>
-
-                                <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
-                                    <div class="form-group">
-                                        <label>Quién recibe: </label>
-                                        <input type="text" placeholder="Ejemplo: Jorge Gonzales Hernandez, etc..." class="form-control" name="person_receive">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
-                                    <div class="form-group">
-                                        <label>Teléfono: </label>
-                                        <input type="text" placeholder="Ejemplo: 33311324567, etc..." class="form-control" name="phone">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
-                                    <div class="form-group">
-                                        <label>Dirección: </label>
-                                        <input type="text" placeholder="Ejemplo: Avenida de los arcos #476, etc..." class="form-control" name="adress">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
+                                
+                                <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                     <div class="form-group">
                                         <label>Colonia y Municipio: </label>
                                         <input type="text" placeholder="Ejemplo: La moderna, etc..." class="form-control" name="colonia">
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                     <div class="form-group">
                                         <label>Cruce entre calles: </label>
                                         <input type="text" placeholder="Ejemplo: Es afuera del coto 4, a dos casas de la entrada, etc..." class="form-control" name="cruce_calles">
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
-                                    <div class="form-group">
-                                        <label>Nombre de la florería: </label>
-                                        <input type="text" placeholder="Ejemplo: florería san jose, etc..." class="form-control" name="name_flower">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
-                                    <div class="form-group">
-                                        <label>Encargado de la florería: </label>
-                                        <input type="text" placeholder="Ejemplo: Adrian Hernandez, etc..." class="form-control" name="name_encargado">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
+                                <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                     <div class="form-group">
                                         <label>Referencias de tu domicilio: </label>
                                         <input type="text" placeholder="Ejemplo: Esta cerca de un coto, enfrenta está un súper, etc..." class="form-control" name="references_coto">

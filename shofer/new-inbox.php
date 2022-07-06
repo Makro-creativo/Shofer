@@ -36,12 +36,12 @@
             echo "no es la extension";
         }
 
-        echo $query_save_inbox = "INSERT INTO inbox(id_user, asunto, description, image, from_id, to_id, status, created_At) VALUES('$idChoferAdd', '$asunto', '$description', '$ruta', '$uid', '$uid2', '0', NOW())";
-        //$result_save_inbox = mysqli_query($conexion, $query_save_inbox);
+        $query_save_inbox = "INSERT INTO inbox(id_user, asunto, description, image, from_id, to_id, status, created_At) VALUES('$idChoferAdd', '$asunto', '$description', '$ruta', '$uid', '$uid2', '0', NOW())";
+        $result_save_inbox = mysqli_query($conexion, $query_save_inbox);
 
-        /*if($result_save_inbox) {
+        if($result_save_inbox) {
             echo "<script>window.location='new-inbox.php?bien'; </script>";
-        }*/
+        }
     }
 ?>
 
@@ -155,6 +155,28 @@
                                         </li>
                                 
                                     </ul>
+
+                                    <ul class="list-group">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <i class="bi bi-envelope-fill"></i>
+                                                Enviados
+                                            </div>
+                                            <span class="badge bg-primary rounded-pill">
+                                                <?php 
+                                                    include "./config/conexion.php";
+
+                                                    $search_count_inbox_admin = "SELECT * FROM inbox";
+                                                    $result_count_inbox = mysqli_query($conexion, $search_count_inbox_admin);
+
+                                                    $count_inbox_admin = mysqli_num_rows($result_count_inbox);
+
+                                                    echo $count_inbox_admin;
+                                                ?>
+                                            </span>
+                                        </li>
+                                
+                                    </ul>
                                 <?php }?>
 
                                 <?php if($typeUser === "Chofer") {?>
@@ -169,6 +191,28 @@
                                                     include "./config/conexion.php";
 
                                                     $total_inbox_chofer = "SELECT * FROM users INNER JOIN inbox ON users.id = inbox.id_user WHERE type = 'Chofer' AND inbox.id_user = '$uid'";
+                                                    $result_total_inbox = mysqli_query($conexion, $total_inbox_chofer);
+
+                                                    $count_inbox_chofer = mysqli_num_rows($result_total_inbox);
+
+                                                    echo $count_inbox_chofer;
+                                                ?>
+                                            </span>
+                                        </li>
+                                
+                                    </ul>
+
+                                    <ul class="list-group">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <i class="bi bi-envelope-fill"></i>
+                                                Enviados
+                                            </div>
+                                            <span class="badge bg-primary rounded-pill">
+                                                <?php 
+                                                    include "./config/conexion.php";
+
+                                                    $total_inbox_chofer = "SELECT * FROM inbox_admin WHERE id_user = '$uid'";
                                                     $result_total_inbox = mysqli_query($conexion, $total_inbox_chofer);
 
                                                     $count_inbox_chofer = mysqli_num_rows($result_total_inbox);

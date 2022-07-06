@@ -5,7 +5,7 @@
     session_start();
   }
 
-  $uid2 = $_SESSION['UID2'];
+  $uid = $_SESSION['UID'];
 ?>
 
 <!DOCTYPE html>
