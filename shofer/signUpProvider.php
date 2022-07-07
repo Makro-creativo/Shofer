@@ -9,14 +9,15 @@
         $nameFlower = $_POST['name_flower'];
         $phone = $_POST['phone'];
         $adress = $_POST['adress'];
-        $status = $_POST['status'];
+        //$status = $_POST['status'];
         
         $query_verify_users = "SELECT * FROM users WHERE username = '$usernameClient'";
         $result_verify_user = mysqli_query($conexion, $query_verify_users);
 
         if(mysqli_num_rows($result_verify_user) > 0) {
             echo "<script>window.location='signUpProvider.php?verify'; </script>";
-        } else {
+        } else if($_POST['password'] === $_POST['repeatpassword']) {
+             $passClient = $_POST['password'];
              //Insertar nuevo registro de correo
              $insert = "INSERT INTO users(name, username, password, type, email, name_flower, phone, adress, status) VALUES ('$nameClient', '$usernameClient', '$passClient', 'Cliente', '$emailClient', '$nameFlower', '$phone', '$adress', 'Activo')";
              $query = mysqli_query($conexion, $insert);
@@ -41,6 +42,8 @@
              } else {
                  echo "<script>window.location='signUpProvider.php?error'; </script>";
              }
+        } else {
+            echo "<script>window.location='signUpProvider.php?batPassword'; </script>";
         }
         
     } 
@@ -94,6 +97,19 @@
             Swal.fire(
                 'Error',
                 'El nombre de usuario con el que intentas registrarte ya existe, intenta con otro',
+                'error'
+            )
+        </script>
+    <?php } ?>
+
+    <?php
+        if(isset($_GET['batPassword'])) {
+    ?>       
+
+        <script>
+            Swal.fire(
+                'Error',
+                'Las contraseñas no coinciden, intente nuevamente.',
                 'error'
             )
         </script>
@@ -178,10 +194,24 @@
                                     </div>
                                 </div>
 
+                                <div class="row mt-3">
+                                    <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12 col-xxl-12">
+                                        <div class="input-group">
+                                            <input class="form-control" type="password" name="repeatpassword" placeholder="Repetir contraseña" id="repeatPassword">
+                                            <span class="input-group-append">
+                                                <button class="btn btn-outline-secondary
+                                                " type="button" onclick="showPasswordRepeat()" id="show_password_repeat">
+                                                    <i class="bi bi-eye-slash-fill"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="row">
                                     <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                         <div class="form-group">
-                                            <label>Nombre de florería: </label>
+                                            <label>Nombre de la empresa: </label>
                                             <input type="text" name="name_flower" class="form-control" placeholder="Nombre de la florería..." required>
                                         </div>
                                     </div>
@@ -228,6 +258,26 @@
   <script type="text/javascript">
     function showPassword(){
         let change = document.getElementById("txtPassword");
+        if(change.type == "password"){
+          change.type = "text";
+          $('.icon').removeClass('fa-solid fa-eye-slash').addClass('fa-solid fa-eye');
+        } else {
+          change.type = "password";
+          $('.icon').removeClass('fa-solid fa-eye').addClass('fa-solid fa-eye-slash');
+        }
+      } 
+      
+      $(document).ready(function () {
+      //CheckBox mostrar contraseña
+      $('#ShowPassword').click(function () {
+        $('#password').attr('type', $(this).is(':checked') ? 'text' : 'password');
+      });
+    });
+</script>
+
+<script type="text/javascript">
+    function showPasswordRepeat(){
+        let change = document.getElementById("repeatPassword");
         if(change.type == "password"){
           change.type = "text";
           $('.icon').removeClass('fa-solid fa-eye-slash').addClass('fa-solid fa-eye');

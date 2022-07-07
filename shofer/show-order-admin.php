@@ -41,6 +41,9 @@
                 echo $format;
             ?>
         </td>
+        <td>
+            <?php echo $row['comments_chofer']; ?>
+        </td>
         <td><img src="<?php echo $row['image']; ?>" alt="" class="img-fluid"></td>
         
         <?php if($typeUser === "Cliente") {?>

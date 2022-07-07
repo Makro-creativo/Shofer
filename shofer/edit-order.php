@@ -12,7 +12,7 @@
     if(isset($_POST['edit'])) {
         $idOrder = $_POST['id_order_edit'];
         $dateSend = $_POST['date_send'];
-        //$personReceive = $_POST['person_receive'];
+        $personReceive = $_POST['person_receive'];
         $colonia = $_POST['colonia'];
         $cruceCalles = $_POST['cruce_calles'];
         //$nameFlower = $_POST['name_flower'];
@@ -43,6 +43,8 @@
             echo "no es la extension";
         }
 
+        $commentsChofer = $_POST['comments_chofer'];
+
         $search_data_users = "SELECT name, name_flower, phone, adress FROM users WHERE id = '$uid'";
         $result_data_users = mysqli_query($conexion, $search_data_users);
 
@@ -52,7 +54,7 @@
         $adress = $rowUsers['adress'];
         $phone = $rowUsers['phone'];
 
-        $query_update = "UPDATE orders SET date_send='$dateSend', person_receive='$nameEncargado', colonia='$colonia', cruce_calles='$cruceCalles', name_flower='$nameFlower', phone='$phone', name_encargado='$nameEncargado', adress='$adress', id_user='$uid', references_coto='$referencesCoto', image='$ruta' WHERE id_order = '$idOrder'";
+        $query_update = "UPDATE orders SET date_send='$dateSend', person_receive='$personReceive', colonia='$colonia', cruce_calles='$cruceCalles', name_flower='$nameFlower', phone='$phone', name_encargado='$nameEncargado', adress='$adress', id_user='$uid', references_coto='$referencesCoto', image='$ruta', comments_chofer='$commentsChofer' WHERE id_order = '$idOrder'";
         $result_update = mysqli_query($conexion, $query_update);
 
         if($result_update) {
@@ -131,6 +133,7 @@
                     //$nameAndPhone = $rowOrder['name_and_phone'];
                     $referencesCoto = $rowOrder['references_coto'];
                     $image = $rowOrder['image'];
+                    $commentsChofer = $rowOrder['comments_chofer'];
                 }
             }
         ?>
@@ -174,24 +177,28 @@
 
                                             <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
-                                                    <label>Colonia y Municipio: </label>
-                                                    <input value="<?php echo $colonia ?>" type="text" placeholder="Ejemplo: La moderna, etc..." class="form-control" name="colonia">
+                                                    <label>Quién recibe: </label>
+                                                    <input type="text" placeholder="Nombre de quién recibe..." class="form-control" name="person_receive" value="<?php echo $personReceive; ?>">
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="row">
+                                            <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
+                                                <div class="form-group">
+                                                    <label>Colonia y Municipio: </label>
+                                                    <input value="<?php echo $colonia ?>" type="text" placeholder="Ejemplo: La moderna, etc..." class="form-control" name="colonia">
+                                                </div>
+                                            </div>
 
-                                           
-
-                                            <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
+                                            <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
                                                 <div class="form-group">
                                                     <label>Cruce entre calles: </label>
                                                     <input value="<?php echo $cruceCalles; ?>" type="text" placeholder="Ejemplo: Es afuera del coto 4, a dos casas de la entrada, etc..." class="form-control" name="cruce_calles">
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
+                                            <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
                                                 <div class="form-group">
                                                     <label>Nombre de la florería: </label>
                                                     <input value="<?php echo $nameFlower; ?>" type="text" placeholder="Ejemplo: florería san jose, etc..." class="form-control" name="name_flower">
@@ -209,8 +216,17 @@
 
                                             <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="form-group">
-                                                    <label class="form-label">Imagen del ramo: </label>
+                                                    <label class="form-label">Imagen del paquete: </label>
                                                     <input value="<?php echo $image; ?>" type="file" name="image" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                <div class="form-group">
+                                                    <label>Comentarios para el chofer: </label>
+                                                    <textarea name="comments_chofer" rows="2" class="form-control" placeholder="Comentarios para el chofer"><?php echo $commentsChofer; ?></textarea>
                                                 </div>
                                             </div>
                                         </div>

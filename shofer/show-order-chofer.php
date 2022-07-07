@@ -87,6 +87,7 @@
                                                     <th>Nombre de la florería</th>
                                                     <th>Nombre del encargado</th>
                                                     <th>Teléfono</th>
+                                                    <th>Comentarios para el chofer</th>
                                                     <th>Imagen del ramo</th>
 
 
@@ -151,6 +152,7 @@
                                                             echo $format;
                                                         ?>
                                                     </td>
+                                                    <td><?php echo $row['comments_chofer']; ?></td>
                                                     <td><img src="<?php echo $row['image']; ?>" alt="" class="img-fluid"></td>
                                                     <?php if($typeUser === "Cliente") {?>
                                                         <td>

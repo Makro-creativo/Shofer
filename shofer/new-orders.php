@@ -10,7 +10,7 @@
 
     if(isset($_POST['save'])) {
         $dateSend = $_POST['date_send'];
-        //$personReceive = $_POST['person_receive'];
+        $personReceive = $_POST['person_receive'];
         $colonia = $_POST['colonia'];
         $cruceCalles = $_POST['cruce_calles'];
         //$nameFlower = $_POST['name_flower'];
@@ -40,6 +40,8 @@
             echo "no es la extension";
         }
 
+        $commentsChofer = $_POST['comments_chofer'];
+
         $search_data_users = "SELECT name, name_flower, phone, adress FROM users WHERE id = '$uid'";
         $result_data_users = mysqli_query($conexion, $search_data_users);
 
@@ -49,7 +51,7 @@
         $adress = $rowUsers['adress'];
         $phone = $rowUsers['phone'];
 
-        $query_save_order = "INSERT INTO orders(date_send, person_receive, colonia, cruce_calles, name_flower, phone, name_encargado, adress, from_id, to_id, status, id_user, references_coto, image, created_date) VALUES('$dateSend', '$nameEncargado', '$colonia', '$cruceCalles', '$nameFlower', '$phone', '$nameEncargado', '$adress', '$uid', '1', '0', '$uid', '$references_coto', '$ruta', NOW())";
+        $query_save_order = "INSERT INTO orders(date_send, person_receive, colonia, cruce_calles, name_flower, phone, name_encargado, adress, from_id, to_id, status, id_user, references_coto, image, created_date, comments_chofer) VALUES('$dateSend', '$personReceive', '$colonia', '$cruceCalles', '$nameFlower', '$phone', '$nameEncargado', '$adress', '$uid', '1', '0', '$uid', '$references_coto', '$ruta', NOW(), '$commentsChofer')";
         $result_save_order = mysqli_query($conexion, $query_save_order);
 
         if($result_save_order) {
@@ -185,10 +187,11 @@
                                                     <th>Colonia</th>
                                                     <th>Cruce entre calles</th>
                                                     <th>Referencias del domicilio</th>
-                                                    <th>Nombre de la florería</th>
+                                                    <th>Nombre de la empresa</th>
                                                     <th>Nombre del encargado</th>
                                                     <th>Teléfono</th>
-                                                    <th>Imagen del ramo</th>
+                                                    <th>Comentarios para el chofer</th>
+                                                    <th>Imagen del paquete</th>
 
                                                     <?php if($typeUser === "Cliente") {?>
                                                         <th>Editar</th>
@@ -257,24 +260,31 @@
                                         <input type="date" name="date_send" class="form-control">
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                     <div class="form-group">
-                                        <label>Colonia y Municipio: </label>
-                                        <input type="text" placeholder="Ejemplo: La moderna, etc..." class="form-control" name="colonia">
+                                        <label>Quién recibe:</label>
+                                        <input type="text" placeholder="Nombre de quién recibe..." class="form-control" name="person_receive">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
+                                <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
+                                    <div class="form-group">
+                                        <label>Colonia y Municipio: </label>
+                                        <input type="text" placeholder="Ejemplo: La moderna, etc..." class="form-control" name="colonia">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
                                     <div class="form-group">
                                         <label>Cruce entre calles: </label>
                                         <input type="text" placeholder="Ejemplo: Es afuera del coto 4, a dos casas de la entrada, etc..." class="form-control" name="cruce_calles">
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
+                                <div class="col-md-4 col-sm-12 col-lg-4 col-xl-4 col-xxl-4">
                                     <div class="form-group">
                                         <label>Referencias de tu domicilio: </label>
                                         <input type="text" placeholder="Ejemplo: Esta cerca de un coto, enfrenta está un súper, etc..." class="form-control" name="references_coto">
@@ -283,10 +293,17 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12 col-xxl-12">
+                                <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
                                     <div class="form-group">
-                                        <label class="form-label">Imagen del ramo: </label>
+                                        <label class="form-label">Imagen del paquete: </label>
                                         <input type="file" name="image" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
+                                    <div class="form-group">
+                                        <label>Comentarios para el chofer: </label>
+                                        <textarea name="comments_chofer" rows="1" class="form-control" placeholder="Comentarios para el chofer"></textarea>
                                     </div>
                                 </div>
                             </div>
