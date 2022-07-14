@@ -17,6 +17,7 @@
         if($result_insert_user) {
             echo "<script>window.location='new-users.php?bien'; </script>";
         }
+
     }
 
     $typeUser = $_SESSION['Type'];
@@ -170,121 +171,9 @@
                             <label>Selecciona una opción</label>
                             <select name="status" id="status" onChange="showForm(this.value);" class="form-control">
                                 <option selected disabled>Eligir opción</option>
-                                <option value="rol-client">Rol de cliente</option>
-                                <option value="rol-chofer">Rol de chofer</option>
                                 <option value="rol-administrador">Rol de administrador</option>
                             </select>
                         </form>
-
-                        <div id="rol-client" style="display: none;">
-                            <form action="new-rol-client.php" method="POST">
-                                <div class="row">
-                                    <div class="col-md-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6 mt-4">
-                                        <div class="form-group">
-                                           <label>Eligir cliente: </label>
-                                           <select name="info_client" require class="form-control">
-                                               <option disabled selected>Eligir cliente</option>
-                                               <?php 
-                                                include "./config/conexion.php";
-                                                        
-                                                $query_client = "SELECT * FROM clients ORDER BY name_client ASC";
-                                                $result_client = mysqli_query($conexion, $query_client);
-
-                                                while($row = mysqli_fetch_array($result_client)) {
-                                                    $idClient = $row['id_user'];
-                                                    $nameClient = $row['name_client'];
-                                               ?>
-                                                <option value="<?php echo $idClient."_".$nameClient; ?>"><?php echo $nameClient; ?></option>
-                                               <?php }?>
-                                           </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6 mt-4">
-                                        <div class="form-group">
-                                            <label>Nombre de usuario: </label>
-                                            <input type="text" placeholder="Ejemplo: FernandoB, etc..." name="username" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
-                                        <div class="form-group">
-                                            <label>Contraseña: </label>
-                                            <input type="text" placeholder="Ejemplo: fernando*2022, etc..." name="password" class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
-                                        <div class="form-group">
-                                            <label>Tipo de Rol: </label>
-                                            <select name="type" require class="form-control">
-                                                <option selected disabled>Eligir Rol</option>
-                                                <option value="Cliente">Cliente</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <input type="submit" value="Registrar" class="btn btn-primary btn-block" name="saveClient">
-                            </form>
-                        </div>
-
-                        <div id="rol-chofer" style="display: none;">
-                            <form action="new-rol-chofer.php" method="POST">
-                                <div class="row">
-                                    <div class="col-md-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6 mt-4">
-                                        <div class="form-group">
-                                           <label>Eligir chofer: </label>
-                                           <select name="info_chofer" require class="form-control">
-                                               <option disabled selected>Eligir chofer</option>
-                                               <?php 
-                                                include "./config/conexion.php";
-                                                        
-                                                $query_client = "SELECT * FROM choferes ORDER BY name ASC";
-                                                $result_client = mysqli_query($conexion, $query_client);
-
-                                                while($row = mysqli_fetch_array($result_client)) {
-                                                    $idChofer = $row['id_user'];
-                                                    $nameChofer = $row['name'];
-                                               ?>
-                                                <option value="<?php echo $idChofer."_".$nameChofer; ?>"><?php echo $nameChofer; ?></option>
-                                               <?php }?>
-                                           </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6 mt-4">
-                                        <div class="form-group">
-                                            <label>Nombre de usuario: </label>
-                                            <input type="text" placeholder="Ejemplo: FernandoB, etc..." name="username" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
-                                        <div class="form-group">
-                                            <label>Contraseña: </label>
-                                            <input type="text" placeholder="Ejemplo: fernando*2022, etc..." name="password" class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6 col-sm-12 col-lg-6 col-xl-6 col-xxl-6">
-                                        <div class="form-group">
-                                            <label>Tipo de Rol: </label>
-                                            <select name="type" require class="form-control">
-                                                <option selected disabled>Eligir Rol</option>
-                                                <option value="Chofer">Chofer</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <input type="submit" value="Registrar" class="btn btn-primary btn-block" name="saveChofer">
-                            </form>
-                        </div>
 
                         <div id="rol-administrador" style="display: none;">
                             <form action="new-users.php" method="POST">
